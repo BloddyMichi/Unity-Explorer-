@@ -1,0 +1,35 @@
+name: Build Data Center CoreCLR
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            8.0.x
+
+      - name: Build Data Center CoreCLR
+        shell: pwsh
+        run: .\build-datacenter.ps1
+
+      - name: Upload Data Center build
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnityExplorer-DataCenter-CoreCLR
+          path: |
+            Release/UnityExplorer.MelonLoader.IL2CPP.CoreCLR/Mods/UnityExplorer.ML.IL2CPP.CoreCLR.dll
+            Release/UnityExplorer.MelonLoader.IL2CPP.CoreCLR/UserLibs/UniverseLib.ML.IL2CPP.Interop.dll
