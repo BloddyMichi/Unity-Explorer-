@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Download latest release
+    url: https://github.com/BloddyMichi/Unity-Explorer-/releases/latest
+    about: Download the latest UnityExplorer Data Center Safe Fork release before reporting a bug.
+  - name: Read installation instructions
+    url: https://github.com/BloddyMichi/Unity-Explorer-#install
+    about: Check the README install section first.
