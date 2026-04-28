@@ -1,0 +1,127 @@
+name: Bug Report
+description: Report a crash, console error, UI problem, or broken Data Center inspection behavior.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug in **UnityExplorer Data Center Safe Fork v1.0.0**.
+        Please fill out as much information as possible.
+
+        Danke für deine Fehlermeldung zu **UnityExplorer Data Center Safe Fork v1.0.0**.
+        Bitte fülle so viele Informationen wie möglich aus.
+
+  - type: checkboxes
+    id: latest-release
+    attributes:
+      label: Latest release check / Aktuelle Version geprüft
+      options:
+        - label: I am using UnityExplorer Data Center Safe Fork v1.0.0 or newer.
+          required: true
+
+  - type: input
+    id: safe-fork-version
+    attributes:
+      label: UnityExplorer Safe Fork version
+      description: Example / Beispiel: v1.0.0
+      placeholder: "v1.0.0"
+      value: "v1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: game-version
+    attributes:
+      label: Data Center game version
+      description: Example / Beispiel: 1.0.49.1
+      placeholder: "1.0.49.1"
+    validations:
+      required: true
+
+  - type: input
+    id: unity-version
+    attributes:
+      label: Unity version
+      description: Example / Beispiel: Unity 6000.4.2f1
+      placeholder: "Unity 6000.4.2f1"
+    validations:
+      required: false
+
+  - type: input
+    id: melonloader-version
+    attributes:
+      label: MelonLoader version
+      description: Example / Beispiel: 0.7.2 Open-Beta
+      placeholder: "0.7.2 Open-Beta"
+      value: "0.7.2 Open-Beta"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package are you using? / Welches Paket nutzt du?
+      options:
+        - UnityExplorer Data Center Safe Fork v1.0.0
+        - MelonLoader IL2CPP CoreCLR
+        - Other / Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What happened? / Was ist passiert?
+      description: Describe the bug clearly.
+      placeholder: "Example: When I click an Object Explorer result, the console shows a KeyNotFoundException..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / Schritte zum Nachstellen
+      description: Tell us exactly how to trigger the problem.
+      placeholder: |
+        1. Start Data Center with MelonLoader
+        2. Open UnityExplorer with F7
+        3. Open Object Explorer
+        4. Search for ...
+        5. Click ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / Erwartetes Verhalten
+      placeholder: "What should have happened? / Was hätte passieren sollen?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output / Konsolen- oder Log-Ausgabe
+      description: Paste the relevant MelonLoader / Player.log / console error here. Please use only the relevant part.
+      render: shell
+      placeholder: "Paste log here..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or video / Screenshots oder Video
+      description: Drag and drop screenshots here if they help explain the problem.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation / Bestätigung
+      options:
+        - label: I understand this fork is made specifically for Data Center and Unity 6000 / IL2CPP / CoreCLR stability testing.
+          required: true
