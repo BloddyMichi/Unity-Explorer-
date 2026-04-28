@@ -1,0 +1,51 @@
+name: Feature Request
+description: Suggest an improvement for the Data Center Safe Fork.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for ideas, improvements, UI changes, or compatibility requests.
+
+        Nutze dieses Formular für Ideen, Verbesserungen, UI-Änderungen oder Kompatibilitätswünsche.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / Bereich
+      options:
+        - Object Explorer
+        - Inspector
+        - Mouse Inspect
+        - UI / Layout
+        - Input / Button clicks
+        - Data Center compatibility
+        - Build / Installer / Release package
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: request
+    attributes:
+      label: What should be changed? / Was soll geändert werden?
+      placeholder: "Describe the requested feature or improvement."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why is this useful? / Warum ist das nützlich?
+      placeholder: "Explain why this helps with Data Center inspection or stability."
+    validations:
+      required: false
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples / Beispiele
+      description: Add screenshots, mockups, logs, or links if useful.
+    validations:
+      required: false
