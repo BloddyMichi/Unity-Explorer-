@@ -100,6 +100,12 @@ C:\Program Files (x86)\Steam\steamapps\common\Data Center\Mods
 
 Vor der Installation einer neuen Version sollten alte UnityExplorer- oder UniverseLib-Dateien aus dem `Mods`-Ordner entfernt werden.
 
+Wenn du aus diesem Repository baust, kann das Install-Skript die Dateien direkt in deinen Data-Center-Ordner kopieren. Vorhandene Dateien werden dabei gesichert:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
+```
+
 Ausführliche Anleitung:
 
 [Installationsanleitung](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
@@ -335,6 +341,12 @@ C:\Program Files (x86)\Steam\steamapps\common\Data Center\Mods
 ```
 
 Before installing a new version, remove old UnityExplorer or UniverseLib files from the `Mods` folder.
+
+If you build from this repository, the install script can copy the files directly into your Data Center folder. Existing files are backed up first:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
+```
 
 Detailed instructions:
 

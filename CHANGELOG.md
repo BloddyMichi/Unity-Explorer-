@@ -2,6 +2,26 @@
 
 All notable changes to this Data Center-focused UnityExplorer fork are documented here.
 
+## v1.0.1 - CoreCLR build cleanup
+
+### English
+
+- Focused `build-datacenter.ps1` on the Data Center IL2CPP CoreCLR MelonLoader target.
+- Added direct packaging for the expected `Mods` and `UserLibs` output structure.
+- Refreshed the ready-to-use CoreCLR release ZIP and SHA256 checksum.
+- Removed the duplicate bug report issue template.
+- Fixed a nullable warning in `SceneHandler`.
+- Merged the latest bilingual README improvements from `main`.
+
+### Deutsch
+
+- `build-datacenter.ps1` auf das Data-Center-Ziel IL2CPP CoreCLR MelonLoader fokussiert.
+- Direkte Paketierung für die erwartete `Mods`- und `UserLibs`-Ordnerstruktur ergänzt.
+- Fertige CoreCLR-Release-ZIP und SHA256-Prüfsumme aktualisiert.
+- Doppelte Bug-Report-Issue-Vorlage entfernt.
+- Nullable-Warnung in `SceneHandler` behoben.
+- Neueste zweisprachige README-Verbesserungen aus `main` übernommen.
+
 ## v1.0.0 - Initial Data Center Safe Fork
 
 ### English
