@@ -117,8 +117,30 @@ namespace UnityExplorer.UI.Widgets
             Title = UIFactory.CreateLabel(UIRoot, "Title", LocalizationManager.GetText("generic_arguments", "Generic Arguments"), TextAnchor.MiddleCenter);
             UIFactory.SetLayoutElement(Title.gameObject, minHeight: 25, flexibleWidth: 9999);
 
-            GameObject scrollview = UIFactory.CreateScrollView(UIRoot, "GenericArgsScrollView", out ArgsHolder, out _, new(0.1f, 0.1f, 0.1f));
-            UIFactory.SetLayoutElement(scrollview, flexibleWidth: 9999, flexibleHeight: 9999);
+            if (ExplorerCore.IsUnity6000OrNewer)
+            {
+                ExplorerCore.Log("Unity 6000 detected, using safe Generic Arguments container fallback.");
+
+                ArgsHolder = UIFactory.CreateVerticalGroup(
+                    UIRoot,
+                    "GenericArgsContent",
+                    true,
+                    false,
+                    true,
+                    true,
+                    0,
+                    new Vector4(5, 5, 5, 5),
+                    new(0.1f, 0.1f, 0.1f),
+                    TextAnchor.UpperLeft);
+
+                UIFactory.SetLayoutElement(ArgsHolder, flexibleWidth: 9999, flexibleHeight: 9999);
+            }
+            else
+            {
+                GameObject scrollview = UIFactory.CreateScrollView(UIRoot, "GenericArgsScrollView", out ArgsHolder, out _, new(0.1f, 0.1f, 0.1f));
+                UIFactory.SetLayoutElement(scrollview, flexibleWidth: 9999, flexibleHeight: 9999);
+            }
+
             UIFactory.SetLayoutGroup<VerticalLayoutGroup>(ArgsHolder, padTop: 5, padLeft: 5, padBottom: 5, padRight: 5);
         }
     }
