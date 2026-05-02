@@ -53,7 +53,7 @@
 - Skipped DisplayManager initialization on Unity 6000.
 - Disabled TimeScaleWidget on Unity 6000.
 - Uses built-in UI resources when the UniverseLib UI AssetBundle is unstable on Unity 6000.
-- Added Data Center-specific build script.
+- Added Data Center-specific build script for the CoreCLR IL2CPP MelonLoader target.
 - Added Data Center-specific install script.
 - Prepared a clean GitHub repository structure.
 - Added GitHub Actions workflow for CoreCLR builds.

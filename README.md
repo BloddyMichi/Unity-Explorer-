@@ -80,7 +80,7 @@ Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\Mods\UnityExplorer.ML.IL2CPP.Co
 Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
 ```
 
-> The full upstream build can still produce Mono/BepInEx/Standalone errors for targets that are not needed for Data Center. For Data Center, use the CoreCLR IL2CPP MelonLoader output.
+> `build-datacenter.ps1` builds only the CoreCLR IL2CPP MelonLoader target needed for Data Center and creates `Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip`.
 
 ---
 
