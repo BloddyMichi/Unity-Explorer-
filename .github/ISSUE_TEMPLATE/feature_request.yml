@@ -1,7 +1,7 @@
 name: Feature Request
 description: Suggest an improvement for the Data Center Safe Fork.
 title: "[Feature]: "
-labels: ["enhancement"]
+labels: ["feature"]
 body:
   - type: markdown
     attributes:
