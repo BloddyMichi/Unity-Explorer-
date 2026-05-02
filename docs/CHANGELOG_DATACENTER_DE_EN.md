@@ -23,6 +23,10 @@
 - DisplayManager-Initialisierung unter Unity 6000 übersprungen.
 - TimeScaleWidget unter Unity 6000 deaktiviert.
 - Built-in UI-Ressourcen werden verwendet, wenn das UniverseLib AssetBundle unter Unity 6000 instabil ist.
+- C# Console unter Unity 6000 gegen `CreateScrollInputField`-Crashes abgesichert.
+- HookManager Editor unter Unity 6000 gegen `CreateScrollInputField`-Crashes abgesichert.
+- Generic Arguments unter Unity 6000 gegen `CreateScrollView`-Crashes abgesichert.
+- Release v1.0.2 mit getesteten UI-Fallbacks für Data Center veröffentlicht.
 - Data-Center-spezifisches Build-Script hinzugefügt.
 - Data-Center-spezifisches Install-Script hinzugefügt.
 - GitHub-Repo-Struktur vorbereitet.
@@ -53,6 +57,10 @@
 - Skipped DisplayManager initialization on Unity 6000.
 - Disabled TimeScaleWidget on Unity 6000.
 - Uses built-in UI resources when the UniverseLib UI AssetBundle is unstable on Unity 6000.
+- Hardened the C# Console against `CreateScrollInputField` crashes on Unity 6000.
+- Hardened the HookManager Editor against `CreateScrollInputField` crashes on Unity 6000.
+- Hardened Generic Arguments against `CreateScrollView` crashes on Unity 6000.
+- Published release v1.0.2 with tested UI fallbacks for Data Center.
 - Added Data Center-specific build script for the CoreCLR IL2CPP MelonLoader target.
 - Added Data Center-specific install script.
 - Prepared a clean GitHub repository structure.
