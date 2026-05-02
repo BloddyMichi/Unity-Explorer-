@@ -13,6 +13,7 @@ $McsDll = Join-Path $BuildDir "mcs.dll"
 $ModDll = Join-Path $ModsDir $ModDllName
 $UserLib = Join-Path $UserLibsDir $UserLibName
 $ZipPath = Join-Path $PSScriptRoot "Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip"
+$ChecksumPath = Join-Path $PSScriptRoot "Release\CHECKSUMS_SHA256.txt"
 
 function Assert-LastCommandSucceeded {
     param([string]$StepName)
@@ -20,6 +21,32 @@ function Assert-LastCommandSucceeded {
     if ($LASTEXITCODE -ne 0) {
         throw "$StepName failed with exit code $LASTEXITCODE."
     }
+}
+
+function Get-RepoRelativePath {
+    param([string]$Path)
+
+    $FullPath = (Resolve-Path -LiteralPath $Path).Path
+    if ($FullPath.StartsWith($PSScriptRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $FullPath.Substring($PSScriptRoot.Length).TrimStart('\', '/') -replace '\\', '/'
+    }
+
+    return $FullPath -replace '\\', '/'
+}
+
+function Write-ChecksumFile {
+    param(
+        [string[]]$Paths,
+        [string]$OutputPath
+    )
+
+    $Lines = foreach ($Path in $Paths) {
+        $Hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
+        $RelativePath = Get-RepoRelativePath $Path
+        "$Hash  $RelativePath"
+    }
+
+    Set-Content -LiteralPath $OutputPath -Value $Lines
 }
 
 Push-Location $PSScriptRoot
@@ -61,6 +88,8 @@ try {
 
     Remove-Item $ZipPath -ErrorAction SilentlyContinue
     Compress-Archive -Path (Join-Path $BuildDir "*") -DestinationPath $ZipPath -Force
+
+    Write-ChecksumFile -Paths @($ZipPath, $ModDll, $UserLib) -OutputPath $ChecksumPath
 }
 finally {
     Pop-Location
@@ -72,6 +101,7 @@ if ((Test-Path $ModDll) -and (Test-Path $UserLib)) {
     Write-Host $ModDll
     Write-Host $UserLib
     Write-Host $ZipPath
+    Write-Host $ChecksumPath
     exit 0
 }
 
