@@ -1,13 +1,20 @@
 name: Other
-description: Something else?
+description: Ask a question or report something that does not fit the other forms.
 title: "[Other]: "
-labels: [Other]
+labels: ["question"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form only if the bug report or feature request forms do not fit.
+
+        Nutze dieses Formular nur, wenn Bug Report oder Feature Request nicht passen.
+
   - type: textarea
     id: description
     attributes:
-      label: Describe the issue
+      label: Describe the topic / Beschreibe das Thema
       description: |
-        Please describe the issue in as much detail as possible.
+        Please describe the question, note, or topic in as much detail as possible.
     validations:
       required: true

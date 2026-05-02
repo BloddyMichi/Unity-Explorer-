@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/BloddyMichi/Unity-Explorer-/releases/latest
     about: Download the latest UnityExplorer Data Center Safe Fork release before reporting a bug.
   - name: Read installation instructions
-    url: https://github.com/BloddyMichi/Unity-Explorer-#install
-    about: Check the README install section first.
+    url: https://github.com/BloddyMichi/Unity-Explorer-/blob/main/docs/INSTALL_DATACENTER_DE_EN.md
+    about: Check the Data Center installation guide first.

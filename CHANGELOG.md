@@ -9,12 +9,14 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 - GitHub Actions now uploads the ready-to-use CoreCLR ZIP plus generated SHA256 checksums.
 - `build-datacenter.ps1` now writes `Release\CHECKSUMS_SHA256.txt` for the ZIP and installed DLLs.
 - Added local bilingual installation and troubleshooting docs for users who do not use the wiki.
+- Cleaned up duplicate GitHub issue templates and fixed the installation guide contact link.
 
 ### Deutsch
 
 - GitHub Actions lädt jetzt die fertige CoreCLR-ZIP plus erzeugte SHA256-Prüfsummen hoch.
 - `build-datacenter.ps1` schreibt jetzt `Release\CHECKSUMS_SHA256.txt` für ZIP und installierbare DLLs.
 - Lokale zweisprachige Installations- und Troubleshooting-Dokumente für Nutzer ohne Wiki ergänzt.
+- Doppelte GitHub-Issue-Vorlagen bereinigt und den Kontaktlink zur Installationsanleitung korrigiert.
 
 ## v1.0.1 - CoreCLR build cleanup
 
