@@ -195,14 +195,20 @@ public static class SceneHandler
 
             LoadedScenes.Clear();
 
+            Scene? currentSelectedScene = SelectedScene;
             string? selectedName = null;
             int selectedBuildIndex = int.MinValue;
-            bool hasSelected = SelectedScene.HasValue && SceneLooksUsable(SelectedScene.Value);
+            bool hasSelected = false;
 
-            if (hasSelected)
+            if (currentSelectedScene.HasValue)
             {
-                selectedName = SelectedScene.Value.name;
-                selectedBuildIndex = SelectedScene.Value.buildIndex;
+                Scene selectedScene = currentSelectedScene.GetValueOrDefault();
+                if (SceneLooksUsable(selectedScene))
+                {
+                    hasSelected = true;
+                    selectedName = selectedScene.name;
+                    selectedBuildIndex = selectedScene.buildIndex;
+                }
             }
 
             for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -225,29 +231,33 @@ public static class SceneHandler
 
             OnLoadedScenesUpdated?.Invoke(LoadedScenes);
 
-            if (SelectedScene.HasValue && SceneLooksUsable(SelectedScene.Value))
+            currentSelectedScene = SelectedScene;
+            if (currentSelectedScene.HasValue)
             {
-                CurrentRootObjects = RuntimeHelper.GetRootGameObjects(SelectedScene.Value);
-            }
-            else
-            {
-                UnityEngine.Object[] allObjects = RuntimeHelper.FindObjectsOfTypeAll(typeof(GameObject));
-                List<GameObject> objects = new();
-
-                foreach (UnityEngine.Object obj in allObjects)
+                Scene selectedScene = currentSelectedScene.GetValueOrDefault();
+                if (SceneLooksUsable(selectedScene))
                 {
-                    GameObject? go = obj.TryCast<GameObject>();
-                    if (go != null &&
-                        go.transform != null &&
-                        go.transform.parent == null &&
-                        !go.scene.IsValid())
-                    {
-                        objects.Add(go);
-                    }
+                    CurrentRootObjects = RuntimeHelper.GetRootGameObjects(selectedScene);
+                    return;
                 }
-
-                CurrentRootObjects = objects;
             }
+
+            UnityEngine.Object[] allObjects = RuntimeHelper.FindObjectsOfTypeAll(typeof(GameObject));
+            List<GameObject> objects = new();
+
+            foreach (UnityEngine.Object obj in allObjects)
+            {
+                GameObject? go = obj.TryCast<GameObject>();
+                if (go != null &&
+                    go.transform != null &&
+                    go.transform.parent == null &&
+                    !go.scene.IsValid())
+                {
+                    objects.Add(go);
+                }
+            }
+
+            CurrentRootObjects = objects;
         }
         catch (Exception ex)
         {

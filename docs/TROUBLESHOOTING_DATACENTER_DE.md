@@ -8,7 +8,7 @@ Für Data Center wird diese Variante verwendet:
 Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR
 ```
 
-Die späteren Mono/net35/BepInEx-Mono Fehler im Standard-Build sind für Data Center normalerweise nicht relevant.
+`build-datacenter.ps1` baut gezielt nur diese CoreCLR-Variante. Der volle Upstream-Build ist für Data Center normalerweise nicht erforderlich.
 
 ## Dateien im Spielordner
 

@@ -225,7 +225,7 @@ Projekt-Board:
 
 Dies ist ein Community-Fork und kein offizielles Tool der Data-Center-Entwickler.
 
-Die Nutzung erfolgt auf eigene Verantwortung.  
+Die Nutzung erfolgt auf eigene Verantwortung.
 Dieses Tool ist für Debugging, Modding, Tests und Entwicklung gedacht.
 
 Verwende Runtime-Inspektoren oder Modding-Tools nicht in Umgebungen, in denen sie nicht erlaubt sind.
@@ -388,6 +388,15 @@ Run the Data Center specific build script:
 powershell -ExecutionPolicy Bypass -File .\build-datacenter.ps1
 ```
 
+Expected Data Center output:
+
+```text
+Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\Mods\UnityExplorer.ML.IL2CPP.CoreCLR.dll
+Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
+```
+
+> `build-datacenter.ps1` builds only the CoreCLR IL2CPP MelonLoader target needed for Data Center and creates `Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip`.
+
 If PowerShell blocks the script:
 
 ```powershell
@@ -461,7 +470,7 @@ Project board:
 
 This is a community-maintained fork and is not an official tool from the Data Center developers.
 
-Use this tool at your own risk.  
+Use this tool at your own risk.
 It is intended for debugging, modding, testing and development purposes.
 
 Do not use runtime inspection or modding tools in environments where they are not allowed.
