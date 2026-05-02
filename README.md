@@ -174,6 +174,8 @@ Weitere Informationen:
 
 Weitere Informationen findest du im Wiki:
 
+- [Lokale Installation / Local Installation](docs/INSTALL_DATACENTER_DE_EN.md)
+- [Lokales Troubleshooting / Local Troubleshooting](docs/TROUBLESHOOTING_DATACENTER_DE.md)
 - [Home](https://github.com/BloddyMichi/Unity-Explorer-/wiki)
 - [Installation](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
 - [Known Issues](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Known-Issues)
@@ -427,6 +429,8 @@ More information:
 
 The wiki contains additional setup, troubleshooting and development information:
 
+- [Local Installation](docs/INSTALL_DATACENTER_DE_EN.md)
+- [Local Troubleshooting](docs/TROUBLESHOOTING_DATACENTER_DE.md)
 - [Home](https://github.com/BloddyMichi/Unity-Explorer-/wiki)
 - [Installation](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
 - [Known Issues](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Known-Issues)
