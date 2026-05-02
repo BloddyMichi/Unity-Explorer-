@@ -405,6 +405,8 @@ Expected Data Center output:
 ```text
 Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\Mods\UnityExplorer.ML.IL2CPP.CoreCLR.dll
 Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
+Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip
+Release\CHECKSUMS_SHA256.txt
 ```
 
 > `build-datacenter.ps1` builds only the CoreCLR IL2CPP MelonLoader target needed for Data Center and creates `Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip`.
