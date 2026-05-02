@@ -37,7 +37,8 @@ namespace UnityExplorer.Hooks
         public static GameObject EditorRoot { get; private set; }
         public static Text EditingHookLabel { get; private set; }
         public static InputFieldScroller EditorInputScroller { get; private set; }
-        public static InputFieldRef EditorInput => EditorInputScroller.InputField;
+        public static InputFieldRef EditorInputFallback { get; private set; }
+        public static InputFieldRef EditorInput => EditorInputScroller != null ? EditorInputScroller.InputField : EditorInputFallback;
         public static Text EditorInputText { get; private set; }
         public static Text EditorHighlightText { get; private set; }
 
@@ -299,8 +300,15 @@ namespace UnityExplorer.Hooks
             editorDoneButton.OnClick += EditorInputCancel;
 
             int fontSize = 16;
-            GameObject inputObj = UIFactory.CreateScrollInputField(EditorRoot, "EditorInput", "", out InputFieldScroller inputScroller, fontSize);
-            EditorInputScroller = inputScroller;
+            if (ExplorerCore.IsUnity6000OrNewer)
+            {
+                ConstructSafeEditorInput(fontSize);
+            }
+            else
+            {
+                ConstructScrollEditorInput(fontSize);
+            }
+
             EditorInput.OnValueChanged += OnEditorInputChanged;
 
             EditorInputText = EditorInput.Component.textComponent;
@@ -328,6 +336,29 @@ namespace UnityExplorer.Hooks
             EditorInputText.font = UniversalUI.ConsoleFont;
             EditorInput.PlaceholderText.font = UniversalUI.ConsoleFont;
             EditorHighlightText.font = UniversalUI.ConsoleFont;
+        }
+
+        private static void ConstructScrollEditorInput(int fontSize)
+        {
+            UIFactory.CreateScrollInputField(EditorRoot, "EditorInput", "", out InputFieldScroller inputScroller, fontSize);
+            EditorInputScroller = inputScroller;
+        }
+
+        private static void ConstructSafeEditorInput(int fontSize)
+        {
+            ExplorerCore.Log("Unity 6000 detected, using safe Hook Editor input fallback.");
+
+            EditorInputFallback = UIFactory.CreateInputField(EditorRoot, "EditorInput", "");
+            UIFactory.SetLayoutElement(EditorInputFallback.Component.gameObject, minWidth: 100, minHeight: 30, flexibleWidth: 5000, flexibleHeight: 5000);
+
+            EditorInputFallback.Component.lineType = InputField.LineType.MultiLineNewline;
+            EditorInputFallback.Component.targetGraphic.color = new Color(0.12f, 0.12f, 0.12f);
+            EditorInputFallback.Component.textComponent.alignment = TextAnchor.UpperLeft;
+            EditorInputFallback.Component.textComponent.fontSize = fontSize;
+            EditorInputFallback.Component.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
+            EditorInputFallback.PlaceholderText.alignment = TextAnchor.UpperLeft;
+            EditorInputFallback.PlaceholderText.fontSize = fontSize;
+            EditorInputFallback.PlaceholderText.horizontalOverflow = HorizontalWrapMode.Wrap;
         }
     }
 }

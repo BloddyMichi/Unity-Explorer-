@@ -86,7 +86,10 @@ public class ConsoleController
         }
 
         _panel.OnInputChanged += OnInputChanged;
-        _panel.InputScroller.OnScroll += OnInputScrolled;
+        if (_panel.InputScroller != null)
+        {
+            _panel.InputScroller.OnScroll += OnInputScrolled;
+        }
         _panel.OnCompileClicked += Evaluate;
         _panel.OnResetClicked += ResetConsole;
         _panel.OnDropdownChanged += SelectedDropDown;
@@ -454,7 +457,7 @@ public class ConsoleController
         }
 
         // If caret moved, ensure caret is visible in the viewport
-        if (caretMoved)
+        if (caretMoved && !_panel.UsesSafeInputFallback)
         {
             UICharInfo charInfo = Input.TextGenerator.characters[lastCaretPosition];
             float charTop = charInfo.cursorPos.y;
@@ -573,6 +576,12 @@ public class ConsoleController
             return;
         }
 
+        if (_panel.UsesSafeInputFallback)
+        {
+            HighlightCompleteInput(out inStringOrComment);
+            return;
+        }
+
         // Calculate the visible lines
 
         int topLine = -1;
@@ -649,6 +658,32 @@ public class ConsoleController
             }
 
             sb.Append('\n');
+        }
+
+        _panel.LineNumberText.text = sb.ToString();
+    }
+
+    private void HighlightCompleteInput(out bool inStringOrComment)
+    {
+        _panel.HighlightText.text = _lexer.BuildHighlightedString(Input.Text, 0, Input.Text.Length - 1, 0, lastCaretPosition, out inStringOrComment);
+
+        StringBuilder sb = new();
+        int realLine = 1;
+        sb.Append(realLine).Append('\n');
+
+        for (int i = 0; i < Input.Text.Length; i++)
+        {
+            char c = Input.Text[i];
+            if (c == '\r' || c == '\n')
+            {
+                if (c == '\r' && i + 1 < Input.Text.Length && Input.Text[i + 1] == '\n')
+                {
+                    i++;
+                }
+
+                realLine++;
+                sb.Append(realLine).Append('\n');
+            }
         }
 
         _panel.LineNumberText.text = sb.ToString();

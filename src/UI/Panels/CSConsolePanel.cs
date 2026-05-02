@@ -17,7 +17,9 @@ namespace UnityExplorer.UI.Panels
         public override Vector2 DefaultAnchorMax => new(0.85f, 0.925f);
 
         public InputFieldScroller InputScroller { get; private set; }
-        public InputFieldRef Input => InputScroller.InputField;
+        public InputFieldRef InputFallback { get; private set; }
+        public InputFieldRef Input => InputScroller != null ? InputScroller.InputField : InputFallback;
+        public bool UsesSafeInputFallback => InputScroller == null && InputFallback != null;
         public Text InputText { get; private set; }
         public Text HighlightText { get; private set; }
         public Text LineNumberText { get; private set; }
@@ -130,6 +132,7 @@ namespace UnityExplorer.UI.Panels
             linesRect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 50);
             linesHolder.AddComponent<Image>().color = new Color(0.05f, 0.05f, 0.05f);
             UIFactory.SetLayoutGroup<VerticalLayoutGroup>(linesHolder, true, true, true, true);
+            UIFactory.SetLayoutElement(linesHolder, minWidth: 50, flexibleWidth: 0, flexibleHeight: 9999);
 
             LineNumberText = UIFactory.CreateLabel(linesHolder, "LineNumbers", "1", TextAnchor.UpperCenter, Color.grey, fontSize: 16);
             LineNumberText.font = UniversalUI.ConsoleFont;
@@ -138,11 +141,25 @@ namespace UnityExplorer.UI.Panels
 
             int fontSize = 16;
 
+            if (ExplorerCore.IsUnity6000OrNewer)
+            {
+                ConstructSafeInputField(inputArea, fontSize);
+            }
+            else
+            {
+                ConstructScrollInputField(inputArea, linesRect, fontSize);
+            }
+
+            ConfigureInputVisuals(fontSize);
+
+            RuntimeHelper.StartCoroutine(DelayedLayoutSetup());
+        }
+
+        private void ConstructScrollInputField(GameObject inputArea, RectTransform linesRect, int fontSize)
+        {
             GameObject inputObj = UIFactory.CreateScrollInputField(inputArea, "ConsoleInput", ConsoleController.STARTUP_TEXT,
                 out InputFieldScroller inputScroller, fontSize);
             InputScroller = inputScroller;
-            ConsoleController.DefaultInputFieldAlpha = Input.Component.selectionColor.a;
-            Input.OnValueChanged += InvokeOnValueChanged;
 
             // move line number text with input field
             linesRect.transform.SetParent(inputObj.transform.Find("Viewport"), false);
@@ -153,6 +170,29 @@ namespace UnityExplorer.UI.Panels
                 linesRect.anchoredPosition = new Vector2(linesRect.anchoredPosition.x, inputScroller.ContentRect.anchoredPosition.y);
                 //SetInputLayout();
             }
+        }
+
+        private void ConstructSafeInputField(GameObject inputArea, int fontSize)
+        {
+            ExplorerCore.Log("Unity 6000 detected, using safe C# Console input fallback.");
+
+            InputFallback = UIFactory.CreateInputField(inputArea, "ConsoleInput", ConsoleController.STARTUP_TEXT);
+            UIFactory.SetLayoutElement(InputFallback.Component.gameObject, minWidth: 100, minHeight: 30, flexibleWidth: 5000, flexibleHeight: 5000);
+
+            InputFallback.Component.lineType = InputField.LineType.MultiLineNewline;
+            InputFallback.Component.targetGraphic.color = new Color(0.12f, 0.12f, 0.12f);
+            InputFallback.Component.textComponent.alignment = TextAnchor.UpperLeft;
+            InputFallback.Component.textComponent.fontSize = fontSize;
+            InputFallback.Component.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
+            InputFallback.PlaceholderText.alignment = TextAnchor.UpperLeft;
+            InputFallback.PlaceholderText.fontSize = fontSize;
+            InputFallback.PlaceholderText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        }
+
+        private void ConfigureInputVisuals(int fontSize)
+        {
+            ConsoleController.DefaultInputFieldAlpha = Input.Component.selectionColor.a;
+            Input.OnValueChanged += InvokeOnValueChanged;
 
             InputText = Input.Component.textComponent;
             InputText.supportRichText = false;
@@ -179,8 +219,6 @@ namespace UnityExplorer.UI.Panels
             InputText.font = UniversalUI.ConsoleFont;
             Input.PlaceholderText.font = UniversalUI.ConsoleFont;
             HighlightText.font = UniversalUI.ConsoleFont;
-
-            RuntimeHelper.StartCoroutine(DelayedLayoutSetup());
         }
 
         private IEnumerator DelayedLayoutSetup()
@@ -191,6 +229,11 @@ namespace UnityExplorer.UI.Panels
 
         public void SetInputLayout()
         {
+            if (UsesSafeInputFallback)
+            {
+                return;
+            }
+
             Input.Transform.offsetMin = new Vector2(52, Input.Transform.offsetMin.y);
             Input.Transform.offsetMax = new Vector2(2, Input.Transform.offsetMax.y);
         }
