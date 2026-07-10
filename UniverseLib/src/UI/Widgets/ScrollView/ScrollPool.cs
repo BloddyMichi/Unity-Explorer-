@@ -698,6 +698,9 @@ namespace UniverseLib.UI.Widgets.ScrollView
             if (!HasValidPoolState())
                 return;
 
+            if (DataSource.ItemCount <= 0 || HeightCache.Count <= 0)
+                return;
+
             RefreshCellHeightsFast();
 
             // normalize the scroll position for the scroll bounds.

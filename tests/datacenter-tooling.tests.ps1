@@ -26,6 +26,7 @@ $Installer = Read-RepoFile "install-datacenter.ps1"
 $Workflow = Read-RepoFile ".github\workflows\release-datacenter-coreclr.yml"
 $Readme = Read-RepoFile "README.md"
 $Troubleshooting = Read-RepoFile "docs\TROUBLESHOOTING_DATACENTER_DE.md"
+$ScrollPool = Read-RepoFile "UniverseLib\src\UI\Widgets\ScrollView\ScrollPool.cs"
 
 Assert-Contains "installer supports auto-detect helper" $Installer "Find-DataCenterGameDir"
 Assert-Contains "installer supports status mode" $Installer '\[switch\]\$Status'
@@ -44,5 +45,6 @@ Assert-Contains "readme documents support package" $Readme "collect-datacenter-l
 
 Assert-Contains "troubleshooting documents status command" $Troubleshooting "-Status"
 Assert-Contains "troubleshooting documents duplicated files" $Troubleshooting "doppelt|duplicate"
+Assert-Contains "scroll pool guards empty data source" $ScrollPool "DataSource\.ItemCount <= 0"
 
 Write-Host "All Data Center tooling tests passed."

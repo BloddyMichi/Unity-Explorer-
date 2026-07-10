@@ -165,6 +165,12 @@ namespace UnityExplorer.ObjectExplorer
 
         public void SetCell(ButtonCell cell, int index)
         {
+            if (index < 0 || index >= currentResults.Count)
+            {
+                cell.Disable();
+                return;
+            }
+
             if (!cachedCellTexts.ContainsKey(index))
             {
                 string text;
@@ -184,6 +190,12 @@ namespace UnityExplorer.ObjectExplorer
 
         private void OnCellClicked(int dataIndex)
         {
+            if (dataIndex < 0 || dataIndex >= currentResults.Count)
+            {
+                ExplorerCore.LogWarning("Object Search ignored stale result click at index " + dataIndex + ".");
+                return;
+            }
+
             AddRecent(currentResults[dataIndex]);
 
             if (context == SearchContext.Class)
