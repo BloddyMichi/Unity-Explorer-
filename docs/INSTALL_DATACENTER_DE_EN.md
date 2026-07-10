@@ -45,9 +45,15 @@ Nützliche Optionen:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Status
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -OpenLogs
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Uninstall
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -RestoreBackup latest
 ```
 
 `-DryRun` zeigt die geplanten Dateien und SHA256-Hashes, ohne etwas zu kopieren. `-WaitForGameExit` wartet, bis Data Center beendet wurde, bevor Dateien ersetzt werden.
+`-Status` zeigt installierte Hashes, Backups, laufende Prozesse und doppelte Dateien. `-Uninstall` entfernt die installierten Dateien mit Backup. `-RestoreBackup latest` stellt das neueste Backup wieder her.
+Ohne `-GameDir` versucht das Skript, den Data-Center-Ordner automatisch über Steam zu finden.
 
 Bei einem anderen Installationspfad:
 
@@ -75,7 +81,10 @@ Bei Problemen kannst du ein Support-Paket erzeugen:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 ```
+
+Im Spiel kann das Options-Panel ebenfalls ein Support-ZIP erstellen und Logs öffnen.
 
 ## English
 
@@ -122,9 +131,15 @@ Useful options:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Status
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -OpenLogs
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Uninstall
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -RestoreBackup latest
 ```
 
 `-DryRun` prints the planned files and SHA256 hashes without copying anything. `-WaitForGameExit` waits until Data Center has exited before replacing files.
+`-Status` prints installed hashes, backups, running processes and duplicate files. `-Uninstall` removes the installed files after backing them up. `-RestoreBackup latest` restores the newest backup.
+When `-GameDir` is omitted, the script tries to auto-detect the Data Center folder from Steam.
 
 For a custom install path:
 
@@ -152,4 +167,7 @@ If something fails, create a support package:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 ```
+
+The in-game Options panel can also create a support ZIP and open logs.

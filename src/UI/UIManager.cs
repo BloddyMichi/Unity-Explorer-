@@ -1,6 +1,7 @@
 ﻿using UnityExplorer.Config;
 using UnityExplorer.CSConsole;
 using UnityExplorer.Inspectors;
+using UnityExplorer.Runtime;
 using UnityExplorer.UI.Panels;
 using UnityExplorer.UI.Widgets;
 using UniverseLib.Input;
@@ -56,7 +57,7 @@ namespace UnityExplorer.UI
         private static bool mouseInspectorInitialized;
         private static bool consoleControllerInitialized;
 
-        private static bool UseUnity6000Fallbacks => ExplorerCore.IsUnity6000OrNewer;
+        private static bool UseUnity6000Fallbacks => DataCenterCompatibility.SafeModeActive;
 
         public static bool ShowMenu
         {
@@ -92,7 +93,7 @@ namespace UnityExplorer.UI
             CreateTopNavBar();
             // This could be automated with Assembly.GetTypes(),
             // but the order is important and I'd have to write something to handle the order.
-            if (UseUnity6000Fallbacks)
+            if (DataCenterCompatibility.DeferPanelBootstrap)
             {
                 ExplorerCore.Log($"UI Stage: Enable deferred panel bootstrap on Unity {Application.unityVersion}");
                 RegisterDeferredPanels();
@@ -115,7 +116,7 @@ namespace UnityExplorer.UI
 
             // Call some initialize methods
             Notification.Init(UIRoot);
-            if (UseUnity6000Fallbacks)
+            if (DataCenterCompatibility.DeferPanelBootstrap)
                 ExplorerCore.Log($"UI Stage: Skip ConsoleController.Init until CSConsole is opened on Unity {Application.unityVersion}");
             else
                 InitializeConsoleController();
@@ -285,7 +286,7 @@ namespace UnityExplorer.UI
             UIFactory.SetLayoutGroup<HorizontalLayoutGroup>(NavbarTabButtonHolder, false, true, true, true, 4, 2, 2, 2, 2);
 
             // Time scale widget
-            if (UseUnity6000Fallbacks)
+            if (DataCenterCompatibility.DisableTimeScaleWidget)
                 ExplorerCore.Log($"UI Stage: Navbar - Skip TimeScaleWidget on Unity {Application.unityVersion}");
             else
                 TimeScaleWidget.SetUp(navbarPanel);

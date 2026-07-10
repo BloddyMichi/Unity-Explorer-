@@ -1,6 +1,9 @@
 name: Release Data Center CoreCLR
 
 on:
+  push:
+    tags:
+      - "v*"
   workflow_dispatch:
     inputs:
       tag:
@@ -25,6 +28,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Guard release tag
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $eventName = '${{ github.event_name }}'
+          $tag = if ($eventName -eq 'push') { '${{ github.ref_name }}' } else { '${{ inputs.tag }}' }
+          if ([string]::IsNullOrWhiteSpace($tag)) {
+            throw "Release tag is required."
+          }
+
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -eq 0) {
+            throw "Release $tag already exists."
+          }
+
+          if ($eventName -ne 'push') {
+            git rev-parse "refs/tags/$tag" *> $null
+            if ($LASTEXITCODE -eq 0) {
+              throw "Tag $tag already exists."
+            }
+          }
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -36,19 +62,60 @@ jobs:
         shell: pwsh
         run: .\build-datacenter.ps1
 
+      - name: Validate release package
+        shell: pwsh
+        run: |
+          $zip = 'Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip'
+          $checksums = 'Release\CHECKSUMS_SHA256.txt'
+          if (!(Test-Path -LiteralPath $zip)) {
+            throw "Release ZIP missing: $zip"
+          }
+          if (!(Test-Path -LiteralPath $checksums)) {
+            throw "Checksum file missing: $checksums"
+          }
+
+          $extractDir = Join-Path $env:RUNNER_TEMP 'datacenter-release-check'
+          Remove-Item -LiteralPath $extractDir -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force -Path $extractDir | Out-Null
+          Expand-Archive -LiteralPath $zip -DestinationPath $extractDir -Force
+
+          $expectedFiles = @(
+            'Mods\UnityExplorer.ML.IL2CPP.CoreCLR.dll',
+            'UserLibs\UniverseLib.ML.IL2CPP.Interop.dll'
+          )
+
+          foreach ($relativePath in $expectedFiles) {
+            $fullPath = Join-Path $extractDir $relativePath
+            if (!(Test-Path -LiteralPath $fullPath)) {
+              throw "Release ZIP is missing $relativePath."
+            }
+          }
+
       - name: Prepare release notes
         shell: pwsh
         run: |
-          $tag = '${{ inputs.tag }}'
-          $title = '${{ inputs.title }}'
+          $eventName = '${{ github.event_name }}'
+          $tag = if ($eventName -eq 'push') { '${{ github.ref_name }}' } else { '${{ inputs.tag }}' }
+          $title = if ($eventName -eq 'push') { "" } else { '${{ inputs.title }}' }
           if ([string]::IsNullOrWhiteSpace($title)) {
             $title = "UnityExplorer Data Center Safe Fork $tag"
+          }
+
+          $changelog = Get-Content -Raw -LiteralPath 'CHANGELOG.md'
+          $unreleased = ""
+          $match = [regex]::Match($changelog, "(?ms)^## Unreleased\s*(?<body>.*?)(?=^##\s|\z)")
+          if ($match.Success) {
+            $unreleased = $match.Groups['body'].Value.Trim()
           }
 
           $notes = @(
             "# $title",
             "",
             "Data Center CoreCLR build for Unity 6000.x / IL2CPP / MelonLoader Open-Beta.",
+            "",
+            "## Changes",
+            "",
+            ($(if ([string]::IsNullOrWhiteSpace($unreleased)) { "See CHANGELOG.md for the current changes." } else { $unreleased })),
             "",
             "## Install",
             "",
@@ -69,8 +136,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = '${{ inputs.tag }}'
-          $title = '${{ inputs.title }}'
+          $eventName = '${{ github.event_name }}'
+          $tag = if ($eventName -eq 'push') { '${{ github.ref_name }}' } else { '${{ inputs.tag }}' }
+          $title = if ($eventName -eq 'push') { "" } else { '${{ inputs.title }}' }
           if ([string]::IsNullOrWhiteSpace($title)) {
             $title = "UnityExplorer Data Center Safe Fork $tag"
           }
@@ -80,11 +148,16 @@ jobs:
             'Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip',
             'Release\CHECKSUMS_SHA256.txt',
             '--title', $title,
-            '--notes-file', 'release-notes.md',
-            '--target', '${{ github.sha }}'
+            '--notes-file', 'release-notes.md'
           )
 
-          if ('${{ inputs.prerelease }}' -eq 'true') {
+          if ($eventName -ne 'push') {
+            $args += @('--target', '${{ github.sha }}')
+          }
+
+          $isPrerelease = if ($eventName -eq 'push') { $tag -match '-' } else { '${{ inputs.prerelease }}' -eq 'true' }
+
+          if ($isPrerelease) {
             $args += '--prerelease'
           }
           else {

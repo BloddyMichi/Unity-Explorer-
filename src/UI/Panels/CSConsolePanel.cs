@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityExplorer.CSConsole;
+using UnityExplorer.Runtime;
 using UniverseLib.UI;
 using UniverseLib.UI.Models;
 using UniverseLib.UI.Widgets;
@@ -141,7 +142,7 @@ namespace UnityExplorer.UI.Panels
 
             int fontSize = 16;
 
-            if (ExplorerCore.IsUnity6000OrNewer)
+            if (DataCenterCompatibility.UseSafeInputFallbacks)
             {
                 ConstructSafeInputField(inputArea, fontSize);
             }

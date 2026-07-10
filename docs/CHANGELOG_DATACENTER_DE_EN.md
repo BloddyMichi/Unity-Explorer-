@@ -36,6 +36,11 @@
 - Support-Paket-Skript für Logs, Hashes und Runtime-Versionen ergänzt.
 - Install-Skript mit Dry-Run, Warten auf Spielende und Vorabprüfungen verbessert.
 - Manuellen GitHub-Actions-Release-Workflow ergänzt.
+- Install-Skript um Auto-Erkennung, Status, Logs-öffnen, Uninstall und Backup-Restore erweitert.
+- Options-Panel um Data-Center-Runtime-Status und Ingame-Support-Paket erweitert.
+- Unity-6000-Safe-Mode-Schalter konfigurierbar gemacht.
+- Object Search um Tag-, Layer-, Komponenten- und Aktivitätsfilter sowie Recent/Favorites erweitert.
+- Lokalen Known-Issues-/Support-Matrix-Generator ergänzt.
 
 ## English
 
@@ -73,3 +78,8 @@
 - Added a support package script for logs, hashes and runtime versions.
 - Improved the install script with dry-run, wait-for-exit and preflight checks.
 - Added a manual GitHub Actions release workflow.
+- Extended the install script with auto-detect, status, open-logs, uninstall and backup restore.
+- Added Data Center runtime status and in-game support package creation to the Options panel.
+- Made Unity 6000 safe-mode fallbacks configurable.
+- Expanded Object Search with tag, layer, component and active-state filters plus recent/favorites.
+- Added a local known-issues/support-matrix generator.

@@ -2,6 +2,7 @@
 using UnityExplorer.CacheObject.Views;
 using UnityExplorer.Config;
 using UniverseLib.UI;
+using UniverseLib.UI.Models;
 using UniverseLib.UI.Widgets.ScrollView;
 
 namespace UnityExplorer.UI.Panels
@@ -95,6 +96,7 @@ namespace UnityExplorer.UI.Panels
             UIFactory.SetLayoutElement(saveBtn.Component.gameObject, flexibleWidth: 9999, minHeight: 30, flexibleHeight: 0);
             saveBtn.OnClick += ConfigManager.Handler.SaveConfig;
 
+            CreateDataCenterStatusBlock();
             CreateMouseInspectKeybindDropdowns();
 
             // Config entries
@@ -106,6 +108,78 @@ namespace UnityExplorer.UI.Panels
                 out GameObject scrollContent);
 
             scrollPool.Initialize(this);
+        }
+
+        private void CreateDataCenterStatusBlock()
+        {
+            GameObject block = UIFactory.CreateVerticalGroup(
+                ContentRoot,
+                "DataCenterStatusBlock",
+                true,
+                false,
+                true,
+                true,
+                4,
+                new Vector4(6, 6, 6, 6),
+                new Color(0.08f, 0.08f, 0.08f));
+
+            UIFactory.SetLayoutElement(block, minHeight: 175, flexibleHeight: 0, flexibleWidth: 9999);
+
+            Text header = UIFactory.CreateLabel(
+                block,
+                "DataCenterStatusHeader",
+                "<b>Data Center Runtime Status</b>",
+                TextAnchor.MiddleLeft);
+
+            UIFactory.SetLayoutElement(header.gameObject, minHeight: 22, flexibleWidth: 9999, flexibleHeight: 0);
+
+            Text statusText = UIFactory.CreateLabel(
+                block,
+                "DataCenterStatusText",
+                DataCenterDiagnostics.GetStatusText(),
+                TextAnchor.UpperLeft);
+
+            statusText.fontSize = 12;
+            statusText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            statusText.verticalOverflow = VerticalWrapMode.Overflow;
+            UIFactory.SetLayoutElement(statusText.gameObject, minHeight: 92, flexibleWidth: 9999, flexibleHeight: 0);
+
+            GameObject buttonRow = UIFactory.CreateHorizontalGroup(
+                block,
+                "DataCenterStatusButtonRow",
+                false,
+                false,
+                true,
+                true,
+                4,
+                new Vector4(0, 0, 0, 0));
+
+            UIFactory.SetLayoutElement(buttonRow, minHeight: 28, flexibleHeight: 0, flexibleWidth: 9999);
+
+            ButtonRef refreshButton = UIFactory.CreateButton(buttonRow, "RefreshDataCenterStatus", "Refresh");
+            UIFactory.SetLayoutElement(refreshButton.Component.gameObject, minWidth: 100, minHeight: 26, flexibleWidth: 0);
+            refreshButton.OnClick += () =>
+            {
+                statusText.text = DataCenterDiagnostics.GetStatusText();
+                Notification.ShowMessage("Data Center status refreshed");
+            };
+
+            ButtonRef supportButton = UIFactory.CreateButton(buttonRow, "CreateDataCenterSupportPackage", "Support ZIP");
+            UIFactory.SetLayoutElement(supportButton.Component.gameObject, minWidth: 120, minHeight: 26, flexibleWidth: 0);
+            supportButton.OnClick += () =>
+            {
+                string path = DataCenterDiagnostics.CreateSupportPackage();
+                Notification.ShowMessage("Support package created");
+                ExplorerCore.Log("Support package path: " + path);
+            };
+
+            ButtonRef logsButton = UIFactory.CreateButton(buttonRow, "OpenDataCenterLogs", "Open Logs");
+            UIFactory.SetLayoutElement(logsButton.Component.gameObject, minWidth: 110, minHeight: 26, flexibleWidth: 0);
+            logsButton.OnClick += DataCenterDiagnostics.OpenLogs;
+
+            ButtonRef packagesButton = UIFactory.CreateButton(buttonRow, "OpenDataCenterSupportPackages", "Packages");
+            UIFactory.SetLayoutElement(packagesButton.Component.gameObject, minWidth: 110, minHeight: 26, flexibleWidth: 0);
+            packagesButton.OnClick += DataCenterDiagnostics.OpenSupportPackages;
         }
 
         private void CreateMouseInspectKeybindDropdowns()

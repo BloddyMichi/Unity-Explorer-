@@ -1,4 +1,5 @@
 ﻿using UnityExplorer.ObjectExplorer;
+using UnityExplorer.Runtime;
 using UniverseLib.UI;
 using UniverseLib.UI.Models;
 
@@ -25,7 +26,7 @@ namespace UnityExplorer.UI.Panels
         private readonly List<ButtonRef> tabButtons = new();
 
         private static bool Unity6000SafeObjectExplorerMode =>
-            Application.unityVersion != null && Application.unityVersion.StartsWith("6000");
+            DataCenterCompatibility.DisableSceneExplorer;
 
         public ObjectExplorerPanel(UIBase owner) : base(owner)
         {

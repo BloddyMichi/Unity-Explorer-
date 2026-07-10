@@ -1,6 +1,7 @@
 ﻿using UniverseLib.UI;
 using UniverseLib.UI.Models;
 using UniverseLib.UI.ObjectPool;
+using UnityExplorer.Runtime;
 
 namespace UnityExplorer.UI.Widgets
 {
@@ -117,7 +118,7 @@ namespace UnityExplorer.UI.Widgets
             Title = UIFactory.CreateLabel(UIRoot, "Title", LocalizationManager.GetText("generic_arguments", "Generic Arguments"), TextAnchor.MiddleCenter);
             UIFactory.SetLayoutElement(Title.gameObject, minHeight: 25, flexibleWidth: 9999);
 
-            if (ExplorerCore.IsUnity6000OrNewer)
+            if (DataCenterCompatibility.UseSafeScrollFallbacks)
             {
                 ExplorerCore.Log("Unity 6000 detected, using safe Generic Arguments container fallback.");
 

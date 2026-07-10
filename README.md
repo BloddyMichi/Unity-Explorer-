@@ -111,7 +111,13 @@ Nützliche Installationsoptionen:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Status
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -OpenLogs
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Uninstall
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -RestoreBackup latest
 ```
+
+Ohne `-GameDir` versucht das Skript, den Data-Center-Ordner automatisch über Steam zu finden.
 
 Ausführliche Anleitung:
 
@@ -146,7 +152,10 @@ Support-Paket für Fehlersuche erstellen:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 ```
+
+Im Spiel enthält das Options-Panel zusätzlich einen **Data Center Runtime Status** mit Buttons zum Aktualisieren, Logs öffnen und Support-ZIP erstellen.
 
 ---
 
@@ -189,6 +198,7 @@ Weitere Informationen findest du im Wiki:
 
 - [Lokale Installation / Local Installation](docs/INSTALL_DATACENTER_DE_EN.md)
 - [Lokales Troubleshooting / Local Troubleshooting](docs/TROUBLESHOOTING_DATACENTER_DE.md)
+- [Lokale Known Issues / Local Known Issues](docs/DATACENTER_KNOWN_ISSUES.md)
 - [Home](https://github.com/BloddyMichi/Unity-Explorer-/wiki)
 - [Installation](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
 - [Known Issues](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Known-Issues)
@@ -368,7 +378,13 @@ Useful install options:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Status
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -OpenLogs
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -Uninstall
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -RestoreBackup latest
 ```
+
+When `-GameDir` is omitted, the script tries to auto-detect the Data Center folder from Steam.
 
 Detailed instructions:
 
@@ -403,7 +419,10 @@ Create a support package for troubleshooting:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 ```
+
+In game, the Options panel also includes a **Data Center Runtime Status** block with buttons to refresh status, open logs and create a support ZIP.
 
 ---
 
@@ -457,6 +476,7 @@ The wiki contains additional setup, troubleshooting and development information:
 
 - [Local Installation](docs/INSTALL_DATACENTER_DE_EN.md)
 - [Local Troubleshooting](docs/TROUBLESHOOTING_DATACENTER_DE.md)
+- [Local Known Issues](docs/DATACENTER_KNOWN_ISSUES.md)
 - [Home](https://github.com/BloddyMichi/Unity-Explorer-/wiki)
 - [Installation](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
 - [Known Issues](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Known-Issues)

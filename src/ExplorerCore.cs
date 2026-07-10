@@ -44,11 +44,11 @@ public static class ExplorerCore
         Loader = loader;
 
         Log($"{NAME} {VERSION} initializing...");
-        LogRuntimeCompatibility();
 
         CheckLegacyExplorerFolder();
         Directory.CreateDirectory(ExplorerFolder);
         ConfigManager.Init(Loader.ConfigHandler);
+        LogRuntimeCompatibility();
 
         Universe.Init(ConfigManager.Startup_Delay_Time.Value, LateInit, Log, new()
         {
@@ -69,7 +69,7 @@ public static class ExplorerCore
     // Default delay is 1 second which is usually enough.
     static void LateInit()
     {
-        if (IsUnity6000OrNewer)
+        if (DataCenterCompatibility.DisableSceneExplorer)
         {
             Log($"Skipping SceneHandler.Init on Unity {Application.unityVersion} due to Unity 6 IL2CPP/CoreCLR stability issues.");
         }
@@ -102,11 +102,12 @@ public static class ExplorerCore
     private static void LogRuntimeCompatibility()
     {
         string unityVersion = Application.unityVersion ?? "unknown";
-        string safeMode = IsUnity6000OrNewer ? "enabled" : "disabled";
+        string safeMode = DataCenterCompatibility.SafeModeActive ? "enabled" : "disabled";
 
         Log($"Runtime compatibility: Unity {unityVersion}, Unity 6000 safe mode {safeMode}.");
+        Log(DataCenterCompatibility.GetSummary());
 
-        if (IsUnity6000OrNewer)
+        if (DataCenterCompatibility.SafeModeActive)
         {
             Log("Unity 6000 safe mode will disable or replace unstable scene, scroll-view and input-field paths.");
         }

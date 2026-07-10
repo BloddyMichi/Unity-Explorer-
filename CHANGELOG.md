@@ -7,8 +7,12 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 ### English
 
 - Added a support package script for collecting Data Center logs, file hashes and detected runtime versions.
-- Improved `install-datacenter.ps1` with dry-run, wait-for-exit, MelonLoader preflight and duplicate-file warnings.
-- Added a manual GitHub Actions release workflow for Data Center CoreCLR builds.
+- Improved `install-datacenter.ps1` with auto-detect, status, open-logs, uninstall, restore-backup, dry-run, wait-for-exit, MelonLoader preflight and duplicate-file warnings.
+- Added in-game Data Center runtime status, log opening and support package buttons to the Options panel.
+- Added configurable Unity 6000 safe-mode switches for scene, input, scroll and TimeScale fallbacks.
+- Expanded Object Search with tag, layer, component and active-state filters plus recent/favorite working sets.
+- Added a manual GitHub Actions release workflow with tag guards, ZIP validation and changelog-derived release notes.
+- Added a generated local Data Center known-issues/support-matrix document.
 - Centralized Unity 6000 safe UI fallback helpers.
 - Added clearer runtime compatibility logging.
 - GitHub Actions now uploads the ready-to-use CoreCLR ZIP plus generated SHA256 checksums.
@@ -19,8 +23,12 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 ### Deutsch
 
 - Support-Paket-Skript zum Sammeln von Data-Center-Logs, Datei-Hashes und erkannten Runtime-Versionen hinzugefügt.
-- `install-datacenter.ps1` mit Dry-Run, Warten auf Spielende, MelonLoader-Vorprüfung und Warnungen vor doppelten Dateien verbessert.
-- Manuellen GitHub-Actions-Release-Workflow für Data-Center-CoreCLR-Builds hinzugefügt.
+- `install-datacenter.ps1` mit Auto-Erkennung, Status, Logs-öffnen, Uninstall, Backup-Restore, Dry-Run, Warten auf Spielende, MelonLoader-Vorprüfung und Warnungen vor doppelten Dateien verbessert.
+- Ingame Data-Center-Runtime-Status, Logs-öffnen und Support-Paket-Buttons im Options-Panel ergänzt.
+- Konfigurierbare Unity-6000-Safe-Mode-Schalter für Scene-, Input-, Scroll- und TimeScale-Fallbacks hinzugefügt.
+- Object Search um Tag-, Layer-, Komponenten- und Aktivitätsfilter sowie Recent/Favorites-Arbeitslisten erweitert.
+- Manuellen GitHub-Actions-Release-Workflow mit Tag-Prüfung, ZIP-Validierung und Changelog-basierten Release Notes hinzugefügt.
+- Generierte lokale Data-Center-Known-Issues-/Support-Matrix ergänzt.
 - Unity-6000-Safe-UI-Fallback-Helfer zentralisiert.
 - Klareres Runtime-Kompatibilitätslogging ergänzt.
 - GitHub Actions lädt jetzt die fertige CoreCLR-ZIP plus erzeugte SHA256-Prüfsummen hoch.

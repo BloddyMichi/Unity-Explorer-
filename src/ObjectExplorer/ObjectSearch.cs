@@ -19,6 +19,7 @@ namespace UnityExplorer.ObjectExplorer
         private SearchContext context = SearchContext.UnityObject;
         private SceneFilter sceneFilter = SceneFilter.Any;
         private ChildFilter childFilter = ChildFilter.Any;
+        private ActiveFilter activeFilter = ActiveFilter.Any;
         private string desiredTypeInput;
         private string lastCheckedTypeInput;
         private bool lastTypeCanHaveGameObject;
@@ -26,6 +27,9 @@ namespace UnityExplorer.ObjectExplorer
         public ButtonListHandler<object, ButtonCell> dataHandler;
         private ScrollPool<ButtonCell> resultsScrollPool;
         private List<object> currentResults = new();
+        private readonly List<object> recentObjects = new();
+        private readonly List<object> favoriteObjects = new();
+        private string currentResultMode = "search";
 
         //public TypeCompleter typeAutocompleter;
         public TypeCompleter unityObjectTypeCompleter;
@@ -37,7 +41,14 @@ namespace UnityExplorer.ObjectExplorer
         private GameObject childFilterRow;
         private GameObject classInputRow;
         private GameObject nameInputRow;
+        private GameObject tagInputRow;
+        private GameObject layerInputRow;
+        private GameObject componentInputRow;
+        private GameObject activeFilterRow;
         private InputFieldRef nameInputField;
+        private InputFieldRef tagInputField;
+        private InputFieldRef layerInputField;
+        private InputFieldRef componentInputField;
         private Text resultsLabel;
 
         public List<object> GetEntries() => currentResults;
@@ -47,16 +58,30 @@ namespace UnityExplorer.ObjectExplorer
             cachedCellTexts.Clear();
 
             if (context == SearchContext.Singleton)
+            {
+                currentResultMode = "singleton";
                 currentResults = SearchProvider.InstanceSearch(desiredTypeInput).ToList();
+            }
             else if (context == SearchContext.Class)
+            {
+                currentResultMode = "class";
                 currentResults = SearchProvider.ClassSearch(desiredTypeInput);
+            }
             else
-                currentResults = SearchProvider.UnityObjectSearch(nameInputField.Text, desiredTypeInput, childFilter, sceneFilter);
+            {
+                currentResultMode = "search";
+                currentResults = SearchProvider.UnityObjectSearch(
+                    nameInputField.Text,
+                    desiredTypeInput,
+                    childFilter,
+                    sceneFilter,
+                    tagInputField.Text,
+                    layerInputField.Text,
+                    componentInputField.Text,
+                    activeFilter);
+            }
 
-            dataHandler.RefreshData();
-            resultsScrollPool.Refresh(true);
-
-            resultsLabel.text = $"{currentResults.Count} results";
+            RefreshResults();
         }
 
         public void Update()
@@ -92,7 +117,16 @@ namespace UnityExplorer.ObjectExplorer
             sceneFilterRow.SetActive(false);
             childFilterRow.SetActive(false);
 
-            nameInputRow.SetActive(context == SearchContext.UnityObject);
+            if (nameInputRow != null)
+                nameInputRow.SetActive(context == SearchContext.UnityObject);
+            if (tagInputRow != null)
+                tagInputRow.SetActive(context == SearchContext.UnityObject);
+            if (layerInputRow != null)
+                layerInputRow.SetActive(context == SearchContext.UnityObject);
+            if (componentInputRow != null)
+                componentInputRow.SetActive(context == SearchContext.UnityObject);
+            if (activeFilterRow != null)
+                activeFilterRow.SetActive(context == SearchContext.UnityObject);
 
             switch (context)
             {
@@ -111,6 +145,8 @@ namespace UnityExplorer.ObjectExplorer
         private void OnSceneFilterDropChanged(int value) => sceneFilter = (SceneFilter)value;
 
         private void OnChildFilterDropChanged(int value) => childFilter = (ChildFilter)value;
+
+        private void OnActiveFilterDropChanged(int value) => activeFilter = (ActiveFilter)value;
 
         private void OnTypeInputChanged(string val)
         {
@@ -148,10 +184,77 @@ namespace UnityExplorer.ObjectExplorer
 
         private void OnCellClicked(int dataIndex)
         {
+            AddRecent(currentResults[dataIndex]);
+
             if (context == SearchContext.Class)
                 InspectorManager.Inspect(currentResults[dataIndex] as Type);
             else
                 InspectorManager.Inspect(currentResults[dataIndex]);
+        }
+
+        private void ShowFavorites()
+        {
+            currentResultMode = "favorites";
+            currentResults = favoriteObjects.Where(IsStillValid).ToList();
+            RefreshResults();
+        }
+
+        private void ShowRecent()
+        {
+            currentResultMode = "recent";
+            currentResults = recentObjects.Where(IsStillValid).ToList();
+            RefreshResults();
+        }
+
+        private void ClearFavorites()
+        {
+            favoriteObjects.Clear();
+            if (currentResultMode == "favorites")
+                ShowFavorites();
+        }
+
+        private void AddActiveInspectorToFavorites()
+        {
+            object target = InspectorManager.ActiveInspector?.Target;
+            if (!IsStillValid(target))
+            {
+                ExplorerCore.LogWarning("No active inspector target is available to favorite.");
+                return;
+            }
+
+            AddUnique(favoriteObjects, target, 50);
+            ExplorerCore.Log("Added favorite Object Search target: " + ToStringUtility.ToStringWithType(target, target.GetActualType()));
+            ShowFavorites();
+        }
+
+        private void AddRecent(object target)
+        {
+            AddUnique(recentObjects, target, 25);
+        }
+
+        private static void AddUnique(List<object> list, object target, int maxCount)
+        {
+            if (!IsStillValid(target))
+                return;
+
+            list.RemoveAll(item => item.ReferenceEqual(target));
+            list.Insert(0, target);
+
+            while (list.Count > maxCount)
+                list.RemoveAt(list.Count - 1);
+        }
+
+        private static bool IsStillValid(object target)
+        {
+            return target != null && !target.IsNullOrDestroyed();
+        }
+
+        private void RefreshResults()
+        {
+            cachedCellTexts.Clear();
+            dataHandler.RefreshData();
+            resultsScrollPool.Refresh(true);
+            resultsLabel.text = $"{currentResults.Count} {currentResultMode} result(s)  |  recent {recentObjects.Count}  |  favorites {favoriteObjects.Count}";
         }
 
         private bool ShouldDisplayCell(object arg1, string arg2) => true;
@@ -237,11 +340,77 @@ namespace UnityExplorer.ObjectExplorer
             nameInputField = UIFactory.CreateInputField(nameInputRow, "NameFilterInput", "...");
             UIFactory.SetLayoutElement(nameInputField.UIRoot, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
 
+            // Tag filter input
+
+            tagInputRow = UIFactory.CreateHorizontalGroup(uiRoot, "TagRow", true, true, true, true, 2, new Vector4(2, 2, 2, 2));
+            UIFactory.SetLayoutElement(tagInputRow, minHeight: 25, flexibleHeight: 0);
+
+            Text tagLbl = UIFactory.CreateLabel(tagInputRow, "TagFilterLabel", "Tag contains:", TextAnchor.MiddleLeft);
+            UIFactory.SetLayoutElement(tagLbl.gameObject, minWidth: 110, flexibleWidth: 0);
+
+            tagInputField = UIFactory.CreateInputField(tagInputRow, "TagFilterInput", "...");
+            UIFactory.SetLayoutElement(tagInputField.UIRoot, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
+
+            // Layer filter input
+
+            layerInputRow = UIFactory.CreateHorizontalGroup(uiRoot, "LayerRow", true, true, true, true, 2, new Vector4(2, 2, 2, 2));
+            UIFactory.SetLayoutElement(layerInputRow, minHeight: 25, flexibleHeight: 0);
+
+            Text layerLbl = UIFactory.CreateLabel(layerInputRow, "LayerFilterLabel", "Layer contains:", TextAnchor.MiddleLeft);
+            UIFactory.SetLayoutElement(layerLbl.gameObject, minWidth: 110, flexibleWidth: 0);
+
+            layerInputField = UIFactory.CreateInputField(layerInputRow, "LayerFilterInput", "number or name");
+            UIFactory.SetLayoutElement(layerInputField.UIRoot, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
+
+            // Component filter input
+
+            componentInputRow = UIFactory.CreateHorizontalGroup(uiRoot, "ComponentRow", true, true, true, true, 2, new Vector4(2, 2, 2, 2));
+            UIFactory.SetLayoutElement(componentInputRow, minHeight: 25, flexibleHeight: 0);
+
+            Text componentLbl = UIFactory.CreateLabel(componentInputRow, "ComponentFilterLabel", "Has component:", TextAnchor.MiddleLeft);
+            UIFactory.SetLayoutElement(componentLbl.gameObject, minWidth: 110, flexibleWidth: 0);
+
+            componentInputField = UIFactory.CreateInputField(componentInputRow, "ComponentFilterInput", "...");
+            UIFactory.SetLayoutElement(componentInputField.UIRoot, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
+            _ = new TypeCompleter(typeof(Component), componentInputField, true, false, true);
+
+            // Active filter row
+
+            activeFilterRow = UIFactory.CreateHorizontalGroup(uiRoot, "ActiveFilterRow", false, true, true, true, 2, new Vector4(2, 2, 2, 2));
+            UIFactory.SetLayoutElement(activeFilterRow, minHeight: 25, flexibleHeight: 0);
+
+            Text activeLbl = UIFactory.CreateLabel(activeFilterRow, "ActiveLabel", "Active filter:", TextAnchor.MiddleLeft);
+            UIFactory.SetLayoutElement(activeLbl.gameObject, minWidth: 110, flexibleWidth: 0);
+
+            GameObject activeDropObj = UIFactory.CreateDropdown(activeFilterRow, "ActiveFilterDropdown", out Dropdown activeDrop, null, 14, OnActiveFilterDropChanged);
+            foreach (string name in Enum.GetNames(typeof(ActiveFilter)))
+                activeDrop.options.Add(new Dropdown.OptionData(name));
+            UIFactory.SetLayoutElement(activeDropObj, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
+
             // Search button
 
-            ButtonRef searchButton = UIFactory.CreateButton(uiRoot, "SearchButton", "Search");
-            UIFactory.SetLayoutElement(searchButton.Component.gameObject, minHeight: 25, flexibleHeight: 0);
+            GameObject actionRow = UIFactory.CreateHorizontalGroup(uiRoot, "SearchActionRow", false, false, true, true, 4, new Vector4(2, 2, 2, 2));
+            UIFactory.SetLayoutElement(actionRow, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
+
+            ButtonRef searchButton = UIFactory.CreateButton(actionRow, "SearchButton", "Search");
+            UIFactory.SetLayoutElement(searchButton.Component.gameObject, minHeight: 25, minWidth: 90, flexibleHeight: 0);
             searchButton.OnClick += DoSearch;
+
+            ButtonRef recentButton = UIFactory.CreateButton(actionRow, "RecentButton", "Recent");
+            UIFactory.SetLayoutElement(recentButton.Component.gameObject, minHeight: 25, minWidth: 90, flexibleHeight: 0);
+            recentButton.OnClick += ShowRecent;
+
+            ButtonRef favoritesButton = UIFactory.CreateButton(actionRow, "FavoritesButton", "Favorites");
+            UIFactory.SetLayoutElement(favoritesButton.Component.gameObject, minHeight: 25, minWidth: 100, flexibleHeight: 0);
+            favoritesButton.OnClick += ShowFavorites;
+
+            ButtonRef favoriteActiveButton = UIFactory.CreateButton(actionRow, "FavoriteActiveButton", "Favorite Active");
+            UIFactory.SetLayoutElement(favoriteActiveButton.Component.gameObject, minHeight: 25, minWidth: 130, flexibleHeight: 0);
+            favoriteActiveButton.OnClick += AddActiveInspectorToFavorites;
+
+            ButtonRef clearFavoritesButton = UIFactory.CreateButton(actionRow, "ClearFavoritesButton", "Clear");
+            UIFactory.SetLayoutElement(clearFavoritesButton.Component.gameObject, minHeight: 25, minWidth: 80, flexibleHeight: 0);
+            clearFavoritesButton.OnClick += ClearFavorites;
 
             // Results count label
 

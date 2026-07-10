@@ -36,6 +36,11 @@ namespace UnityExplorer.Config
         public static ConfigElement<MenuLanguage> Menu_Language;
         public static ConfigElement<KeyCode> World_MouseInspect_Keybind;
         public static ConfigElement<KeyCode> UI_MouseInspect_Keybind;
+        public static ConfigElement<bool> Unity6000_EnableSafeMode;
+        public static ConfigElement<bool> Unity6000_DisableSceneExplorer;
+        public static ConfigElement<bool> Unity6000_UseSafeInputFallbacks;
+        public static ConfigElement<bool> Unity6000_UseSafeScrollFallbacks;
+        public static ConfigElement<bool> Unity6000_DisableTimeScaleWidget;
         public static ConfigElement<string> CSConsole_Assembly_Blacklist;
         public static ConfigElement<string> Reflection_Signature_Blacklist;
 
@@ -161,6 +166,26 @@ namespace UnityExplorer.Config
             UI_MouseInspect_Keybind = new("UI Mouse-Inspect Keybind",
                 "Optional keybind to begin a UI-mode Mouse Inspect.",
                 KeyCode.None);
+
+            Unity6000_EnableSafeMode = new("Unity 6000 Safe Mode",
+                "Enable Data Center compatibility fallbacks for Unity 6000 / IL2CPP / CoreCLR. Restart recommended when changing this setting.",
+                true);
+
+            Unity6000_DisableSceneExplorer = new("Unity 6000 Disable Scene Explorer",
+                "Disable Scene Explorer and SceneManager scene scans on Unity 6000. Object Search remains available. Restart required.",
+                true);
+
+            Unity6000_UseSafeInputFallbacks = new("Unity 6000 Safe Input Fallbacks",
+                "Use simpler multi-line input fields for the C# Console and Hook Editor on Unity 6000. Restart required.",
+                true);
+
+            Unity6000_UseSafeScrollFallbacks = new("Unity 6000 Safe Scroll Fallbacks",
+                "Replace scroll-view based UI paths which are unstable in Data Center on Unity 6000. Restart required.",
+                true);
+
+            Unity6000_DisableTimeScaleWidget = new("Unity 6000 Disable TimeScale Widget",
+                "Hide the TimeScale widget on Unity 6000 to avoid early UI initialization instability. Restart required.",
+                true);
 
             CSConsole_Assembly_Blacklist = new("CSharp Console Assembly Blacklist",
                 "Use this to blacklist Assembly names from being referenced by the C# Console. Requires a Reset of the C# Console.\n" +

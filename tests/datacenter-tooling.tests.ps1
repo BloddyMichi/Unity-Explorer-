@@ -28,13 +28,13 @@ $Readme = Read-RepoFile "README.md"
 $Troubleshooting = Read-RepoFile "docs\TROUBLESHOOTING_DATACENTER_DE.md"
 
 Assert-Contains "installer supports auto-detect helper" $Installer "Find-DataCenterGameDir"
-Assert-Contains "installer supports status mode" $Installer "\[switch\]\$Status"
-Assert-Contains "installer supports uninstall mode" $Installer "\[switch\]\$Uninstall"
-Assert-Contains "installer supports restore backup mode" $Installer "\[string\]\$RestoreBackup"
+Assert-Contains "installer supports status mode" $Installer '\[switch\]\$Status'
+Assert-Contains "installer supports uninstall mode" $Installer '\[switch\]\$Uninstall'
+Assert-Contains "installer supports restore backup mode" $Installer '\[string\]\$RestoreBackup'
 Assert-Contains "installer reports install state" $Installer "Get-InstallState"
-Assert-Contains "installer can open logs" $Installer "\[switch\]\$OpenLogs"
+Assert-Contains "installer can open logs" $Installer '\[switch\]\$OpenLogs'
 
-Assert-Contains "release workflow checks existing tags" $Workflow "gh release view \$tag"
+Assert-Contains "release workflow checks existing tags" $Workflow 'gh release view \$tag'
 Assert-Contains "release workflow validates zip contents" $Workflow "Expand-Archive"
 Assert-Contains "release workflow reads changelog" $Workflow "CHANGELOG.md"
 

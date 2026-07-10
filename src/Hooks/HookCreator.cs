@@ -301,7 +301,7 @@ namespace UnityExplorer.Hooks
             editorDoneButton.OnClick += EditorInputCancel;
 
             int fontSize = 16;
-            if (ExplorerCore.IsUnity6000OrNewer)
+            if (DataCenterCompatibility.UseSafeInputFallbacks)
             {
                 ConstructSafeEditorInput(fontSize);
             }

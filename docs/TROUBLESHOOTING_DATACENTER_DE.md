@@ -80,6 +80,23 @@ Data Center\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
 - Wenn du das Install-Skript verwendest, prüfe den letzten Ordner unter `Data Center\UnityExplorer.Backups`.
 - Nutze `install-datacenter.ps1 -DryRun`, um vorab Zielpfade und Hashes zu prüfen.
 - Nutze `install-datacenter.ps1 -WaitForGameExit`, wenn Data Center noch läuft.
+- Nutze `install-datacenter.ps1 -Status`, um installierte Hashes, laufende Prozesse, Backups und doppelte Dateien zu prüfen.
+- Nutze `install-datacenter.ps1 -Uninstall`, um UnityExplorer mit Backup zu entfernen.
+- Nutze `install-datacenter.ps1 -RestoreBackup latest`, um das neueste Backup wiederherzustellen.
+- Nutze `install-datacenter.ps1 -OpenLogs`, um `Latest.log` und den UnityExplorer-Logordner zu öffnen.
+
+**Doppelte oder falsch platzierte Dateien**
+
+Diese Dateien können verhindern, dass die richtige Version geladen wird:
+
+```text
+Data Center\Mods\UniverseLib.ML.IL2CPP.Interop.dll
+Data Center\Mods\UniverseLib.ML.IL2CPP.dll
+Data Center\Mods\UnityExplorer.ML.IL2CPP.dll
+Data Center\UserLibs\UnityExplorer.ML.IL2CPP.CoreCLR.dll
+```
+
+`install-datacenter.ps1 -Status` warnt vor diesen Duplikaten.
 
 ## English
 
@@ -161,3 +178,20 @@ Data Center\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
 - If you use the install script, check the latest folder under `Data Center\UnityExplorer.Backups`.
 - Use `install-datacenter.ps1 -DryRun` to check target paths and hashes before copying.
 - Use `install-datacenter.ps1 -WaitForGameExit` if Data Center is still running.
+- Use `install-datacenter.ps1 -Status` to check installed hashes, running processes, backups and duplicate files.
+- Use `install-datacenter.ps1 -Uninstall` to remove UnityExplorer after creating a backup.
+- Use `install-datacenter.ps1 -RestoreBackup latest` to restore the newest backup.
+- Use `install-datacenter.ps1 -OpenLogs` to open `Latest.log` and the UnityExplorer log folder.
+
+**Duplicate or misplaced files**
+
+These files can stop the correct version from loading:
+
+```text
+Data Center\Mods\UniverseLib.ML.IL2CPP.Interop.dll
+Data Center\Mods\UniverseLib.ML.IL2CPP.dll
+Data Center\Mods\UnityExplorer.ML.IL2CPP.dll
+Data Center\UserLibs\UnityExplorer.ML.IL2CPP.CoreCLR.dll
+```
+
+`install-datacenter.ps1 -Status` warns about these duplicate files.
