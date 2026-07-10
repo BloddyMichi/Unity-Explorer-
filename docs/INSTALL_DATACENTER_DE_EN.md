@@ -40,6 +40,15 @@ Falls du aus dem Repository baust, kann das Install-Skript die Dateien kopieren 
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
 ```
 
+Nützliche Optionen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+```
+
+`-DryRun` zeigt die geplanten Dateien und SHA256-Hashes, ohne etwas zu kopieren. `-WaitForGameExit` wartet, bis Data Center beendet wurde, bevor Dateien ersetzt werden.
+
 Bei einem anderen Installationspfad:
 
 ```powershell
@@ -60,6 +69,12 @@ Erwartete Hinweise:
 UnityExplorer 4.13.5 (IL2CPP) initialized.
 ObjectExplorerPanel: Unity 6000 safe mode skips Scene Explorer...
 Object Search (Safe)
+```
+
+Bei Problemen kannst du ein Support-Paket erzeugen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
 ```
 
 ## English
@@ -102,6 +117,15 @@ If you build from the repository, the install script can copy the files and back
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
 ```
 
+Useful options:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+```
+
+`-DryRun` prints the planned files and SHA256 hashes without copying anything. `-WaitForGameExit` waits until Data Center has exited before replacing files.
+
 For a custom install path:
 
 ```powershell
@@ -122,4 +146,10 @@ Expected messages:
 UnityExplorer 4.13.5 (IL2CPP) initialized.
 ObjectExplorerPanel: Unity 6000 safe mode skips Scene Explorer...
 Object Search (Safe)
+```
+
+If something fails, create a support package:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
 ```

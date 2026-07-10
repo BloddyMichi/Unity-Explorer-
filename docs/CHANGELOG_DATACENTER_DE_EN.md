@@ -3,8 +3,8 @@
 ## Deutsch
 
 - UnityExplorer für **Data Center** angepasst.
-- Kompatibilität für **MelonLoader v0.7.2 Open-Beta** verbessert.
-- Anpassungen für **Unity 6000.4.2f1 / IL2CPP / net6 CoreCLR** eingebaut.
+- Kompatibilität für **MelonLoader v0.7.x Open-Beta** verbessert, getestet mit **0.7.3**.
+- Anpassungen für **Unity 6000.x / IL2CPP / net6 CoreCLR** eingebaut, getestet mit **6000.4.12f1**.
 - SafeInspector-Modus hinzugefügt.
 - Automatische Property-Auswertung deaktiviert, um Fehler bei `Transform.hasChanged` zu vermeiden.
 - `SceneManager.sceneCount`-Zugriffe im Object Explorer entschärft.
@@ -33,12 +33,15 @@
 - GitHub Actions Workflow für CoreCLR-Build hinzugefügt.
 - Upstream-README separat unter `docs/README_UPSTREAM_UnityExplorer.md` abgelegt.
 - Fertiges CoreCLR-Release-ZIP unter `release-assets/` beigelegt.
+- Support-Paket-Skript für Logs, Hashes und Runtime-Versionen ergänzt.
+- Install-Skript mit Dry-Run, Warten auf Spielende und Vorabprüfungen verbessert.
+- Manuellen GitHub-Actions-Release-Workflow ergänzt.
 
 ## English
 
 - Adapted UnityExplorer for **Data Center**.
-- Improved compatibility with **MelonLoader v0.7.2 Open-Beta**.
-- Added adjustments for **Unity 6000.4.2f1 / IL2CPP / net6 CoreCLR**.
+- Improved compatibility with **MelonLoader v0.7.x Open-Beta**, tested with **0.7.3**.
+- Added adjustments for **Unity 6000.x / IL2CPP / net6 CoreCLR**, tested with **6000.4.12f1**.
 - Added SafeInspector mode.
 - Disabled automatic property evaluation to avoid `Transform.hasChanged` errors.
 - Hardened Object Explorer against unsafe `SceneManager.sceneCount` calls.
@@ -67,3 +70,6 @@
 - Added GitHub Actions workflow for CoreCLR builds.
 - Preserved upstream README as `docs/README_UPSTREAM_UnityExplorer.md`.
 - Included ready CoreCLR release ZIP under `release-assets/`.
+- Added a support package script for logs, hashes and runtime versions.
+- Improved the install script with dry-run, wait-for-exit and preflight checks.
+- Added a manual GitHub Actions release workflow.

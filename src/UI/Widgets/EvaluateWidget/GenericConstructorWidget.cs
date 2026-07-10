@@ -121,19 +121,7 @@ namespace UnityExplorer.UI.Widgets
             {
                 ExplorerCore.Log("Unity 6000 detected, using safe Generic Arguments container fallback.");
 
-                ArgsHolder = UIFactory.CreateVerticalGroup(
-                    UIRoot,
-                    "GenericArgsContent",
-                    true,
-                    false,
-                    true,
-                    true,
-                    0,
-                    new Vector4(5, 5, 5, 5),
-                    new(0.1f, 0.1f, 0.1f),
-                    TextAnchor.UpperLeft);
-
-                UIFactory.SetLayoutElement(ArgsHolder, flexibleWidth: 9999, flexibleHeight: 9999);
+                ArgsHolder = Unity6000SafeUI.CreateSafeVerticalContainer(UIRoot, "GenericArgsContent", new Vector4(5, 5, 5, 5));
             }
             else
             {
