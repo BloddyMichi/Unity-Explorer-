@@ -7,10 +7,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Game-Data%20Center-brightgreen" />
-  <img src="https://img.shields.io/badge/Unity-6000.4.2f1-blue" />
+  <img src="https://img.shields.io/badge/Unity-6000.4.12f1-blue" />
   <img src="https://img.shields.io/badge/Backend-IL2CPP-orange" />
   <img src="https://img.shields.io/badge/Runtime-net6%20%2F%20CoreCLR-purple" />
-  <img src="https://img.shields.io/badge/MelonLoader-0.7.2%20Open--Beta-red" />
+  <img src="https://img.shields.io/badge/MelonLoader-0.7.3%20Open--Beta-red" />
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue" />
 </p>
 
@@ -27,7 +27,7 @@ Ziel dieses Forks ist es, UnityExplorer mit folgender Umgebung nutzbar zu machen
 - **Unity 6000**
 - **IL2CPP**
 - **net6 / CoreCLR**
-- **MelonLoader 0.7.2 Open-Beta**
+- **MelonLoader 0.7.3 Open-Beta**
 - **Data Center**
 
 Dieser Fork ist auf Kompatibilität und Stabilität ausgelegt. Einige Standardfunktionen von UnityExplorer können angepasst, verzögert, deaktiviert oder durch sicherere Alternativen ersetzt sein, um Abstürze, Konsolen-Spam oder unsichere Unity-API-Aufrufe zu reduzieren.
@@ -40,10 +40,10 @@ Dieser Fork ist auf Kompatibilität und Stabilität ausgelegt. Einige Standardfu
 |---|---|
 | Spiel | Data Center |
 | Entwickler | Waseku |
-| Unity | 6000.4.2f1 |
+| Unity | 6000.4.12f1 |
 | Backend | IL2CPP |
 | Runtime | net6 / CoreCLR |
-| Loader | MelonLoader 0.7.2 Open-Beta |
+| Loader | MelonLoader 0.7.3 Open-Beta |
 | Plattform | Windows |
 | Lizenz | GPL-3.0 |
 
@@ -271,7 +271,7 @@ The goal of this fork is to make UnityExplorer usable with the following environ
 - **Unity 6000**
 - **IL2CPP**
 - **net6 / CoreCLR**
-- **MelonLoader 0.7.2 Open-Beta**
+- **MelonLoader 0.7.3 Open-Beta**
 - **Data Center**
 
 This fork focuses on compatibility and stability. Some default UnityExplorer behavior may be changed, delayed, disabled or replaced with safer alternatives to reduce crashes, console spam and unsafe Unity API calls.
@@ -284,10 +284,10 @@ This fork focuses on compatibility and stability. Some default UnityExplorer beh
 |---|---|
 | Game | Data Center |
 | Developer | Waseku |
-| Unity | 6000.4.2f1 |
+| Unity | 6000.4.12f1 |
 | Backend | IL2CPP |
 | Runtime | net6 / CoreCLR |
-| Loader | MelonLoader 0.7.2 Open-Beta |
+| Loader | MelonLoader 0.7.3 Open-Beta |
 | Platform | Windows |
 | License | GPL-3.0 |
 
