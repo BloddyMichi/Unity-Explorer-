@@ -186,6 +186,18 @@ namespace UnityExplorer.UI
 
         public static void SetPanelActive(Panels panelType, bool active)
         {
+            if (!UIPanels.ContainsKey(panelType))
+            {
+                if (!active)
+                    return;
+
+                if (!EnsurePanelCreated(panelType))
+                {
+                    ExplorerCore.LogWarning($"SetPanelActive could not create deferred panel {panelType}.");
+                    return;
+                }
+            }
+
             GetPanel(panelType).SetActive(active);
         }
 
