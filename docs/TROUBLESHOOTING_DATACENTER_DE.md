@@ -38,6 +38,11 @@ Object Search (Safe)
 - Prüfe, ob die DLL wirklich im `Mods`-Ordner liegt.
 - Prüfe, ob `UniverseLib.ML.IL2CPP.Interop.dll` im `UserLibs`-Ordner liegt.
 - Entferne alte UnityExplorer- oder UniverseLib-Dateien aus falschen Ordnern.
+- Erzeuge bei Bedarf ein Support-Paket:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+```
 
 **Button-Klicks oder Mausfokus wirken unzuverlässig**
 
@@ -73,6 +78,8 @@ Data Center\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
 ```
 
 - Wenn du das Install-Skript verwendest, prüfe den letzten Ordner unter `Data Center\UnityExplorer.Backups`.
+- Nutze `install-datacenter.ps1 -DryRun`, um vorab Zielpfade und Hashes zu prüfen.
+- Nutze `install-datacenter.ps1 -WaitForGameExit`, wenn Data Center noch läuft.
 
 ## English
 
@@ -112,6 +119,11 @@ Object Search (Safe)
 - Check that the UnityExplorer DLL is really in the `Mods` folder.
 - Check that `UniverseLib.ML.IL2CPP.Interop.dll` is in the `UserLibs` folder.
 - Remove old UnityExplorer or UniverseLib files from wrong folders.
+- Create a support package when needed:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
+```
 
 **Button clicks or mouse focus feel unreliable**
 
@@ -147,3 +159,5 @@ Data Center\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll
 ```
 
 - If you use the install script, check the latest folder under `Data Center\UnityExplorer.Backups`.
+- Use `install-datacenter.ps1 -DryRun` to check target paths and hashes before copying.
+- Use `install-datacenter.ps1 -WaitForGameExit` if Data Center is still running.

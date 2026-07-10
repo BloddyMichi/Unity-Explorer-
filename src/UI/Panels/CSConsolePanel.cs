@@ -176,17 +176,7 @@ namespace UnityExplorer.UI.Panels
         {
             ExplorerCore.Log("Unity 6000 detected, using safe C# Console input fallback.");
 
-            InputFallback = UIFactory.CreateInputField(inputArea, "ConsoleInput", ConsoleController.STARTUP_TEXT);
-            UIFactory.SetLayoutElement(InputFallback.Component.gameObject, minWidth: 100, minHeight: 30, flexibleWidth: 5000, flexibleHeight: 5000);
-
-            InputFallback.Component.lineType = InputField.LineType.MultiLineNewline;
-            InputFallback.Component.targetGraphic.color = new Color(0.12f, 0.12f, 0.12f);
-            InputFallback.Component.textComponent.alignment = TextAnchor.UpperLeft;
-            InputFallback.Component.textComponent.fontSize = fontSize;
-            InputFallback.Component.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
-            InputFallback.PlaceholderText.alignment = TextAnchor.UpperLeft;
-            InputFallback.PlaceholderText.fontSize = fontSize;
-            InputFallback.PlaceholderText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            InputFallback = Unity6000SafeUI.CreateSafeMultiLineInput(inputArea, "ConsoleInput", ConsoleController.STARTUP_TEXT, fontSize);
         }
 
         private void ConfigureInputVisuals(int fontSize)

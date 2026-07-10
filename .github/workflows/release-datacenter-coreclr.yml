@@ -1,0 +1,94 @@
+name: Release Data Center CoreCLR
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, for example v1.0.3
+        required: true
+      title:
+        description: Release title
+        required: false
+      prerelease:
+        description: Mark release as prerelease
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            8.0.x
+
+      - name: Build Data Center CoreCLR
+        shell: pwsh
+        run: .\build-datacenter.ps1
+
+      - name: Prepare release notes
+        shell: pwsh
+        run: |
+          $tag = '${{ inputs.tag }}'
+          $title = '${{ inputs.title }}'
+          if ([string]::IsNullOrWhiteSpace($title)) {
+            $title = "UnityExplorer Data Center Safe Fork $tag"
+          }
+
+          $notes = @(
+            "# $title",
+            "",
+            "Data Center CoreCLR build for Unity 6000.x / IL2CPP / MelonLoader Open-Beta.",
+            "",
+            "## Install",
+            "",
+            "Copy the included folders into your Data Center game directory:",
+            "",
+            '```text',
+            'Data Center\Mods\UnityExplorer.ML.IL2CPP.CoreCLR.dll',
+            'Data Center\UserLibs\UniverseLib.ML.IL2CPP.Interop.dll',
+            '```',
+            "",
+            "SHA256 checksums are included in CHECKSUMS_SHA256.txt."
+          )
+
+          Set-Content -LiteralPath release-notes.md -Value $notes -Encoding utf8
+
+      - name: Create GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ inputs.tag }}'
+          $title = '${{ inputs.title }}'
+          if ([string]::IsNullOrWhiteSpace($title)) {
+            $title = "UnityExplorer Data Center Safe Fork $tag"
+          }
+
+          $args = @(
+            'release', 'create', $tag,
+            'Release\UnityExplorer.MelonLoader.IL2CPP.CoreCLR.zip',
+            'Release\CHECKSUMS_SHA256.txt',
+            '--title', $title,
+            '--notes-file', 'release-notes.md',
+            '--target', '${{ github.sha }}'
+          )
+
+          if ('${{ inputs.prerelease }}' -eq 'true') {
+            $args += '--prerelease'
+          }
+          else {
+            $args += '--latest'
+          }
+
+          gh @args

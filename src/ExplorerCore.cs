@@ -44,6 +44,7 @@ public static class ExplorerCore
         Loader = loader;
 
         Log($"{NAME} {VERSION} initializing...");
+        LogRuntimeCompatibility();
 
         CheckLegacyExplorerFolder();
         Directory.CreateDirectory(ExplorerFolder);
@@ -96,6 +97,19 @@ public static class ExplorerCore
         }
 
         // InspectorManager.Inspect(typeof(Tests.TestClass));
+    }
+
+    private static void LogRuntimeCompatibility()
+    {
+        string unityVersion = Application.unityVersion ?? "unknown";
+        string safeMode = IsUnity6000OrNewer ? "enabled" : "disabled";
+
+        Log($"Runtime compatibility: Unity {unityVersion}, Unity 6000 safe mode {safeMode}.");
+
+        if (IsUnity6000OrNewer)
+        {
+            Log("Unity 6000 safe mode will disable or replace unstable scene, scroll-view and input-field paths.");
+        }
     }
 
     internal static void Update()

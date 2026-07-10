@@ -6,6 +6,11 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 
 ### English
 
+- Added a support package script for collecting Data Center logs, file hashes and detected runtime versions.
+- Improved `install-datacenter.ps1` with dry-run, wait-for-exit, MelonLoader preflight and duplicate-file warnings.
+- Added a manual GitHub Actions release workflow for Data Center CoreCLR builds.
+- Centralized Unity 6000 safe UI fallback helpers.
+- Added clearer runtime compatibility logging.
 - GitHub Actions now uploads the ready-to-use CoreCLR ZIP plus generated SHA256 checksums.
 - `build-datacenter.ps1` now writes `Release\CHECKSUMS_SHA256.txt` for the ZIP and installed DLLs.
 - Added local bilingual installation and troubleshooting docs for users who do not use the wiki.
@@ -13,6 +18,11 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 
 ### Deutsch
 
+- Support-Paket-Skript zum Sammeln von Data-Center-Logs, Datei-Hashes und erkannten Runtime-Versionen hinzugefügt.
+- `install-datacenter.ps1` mit Dry-Run, Warten auf Spielende, MelonLoader-Vorprüfung und Warnungen vor doppelten Dateien verbessert.
+- Manuellen GitHub-Actions-Release-Workflow für Data-Center-CoreCLR-Builds hinzugefügt.
+- Unity-6000-Safe-UI-Fallback-Helfer zentralisiert.
+- Klareres Runtime-Kompatibilitätslogging ergänzt.
 - GitHub Actions lädt jetzt die fertige CoreCLR-ZIP plus erzeugte SHA256-Prüfsummen hoch.
 - `build-datacenter.ps1` schreibt jetzt `Release\CHECKSUMS_SHA256.txt` für ZIP und installierbare DLLs.
 - Lokale zweisprachige Installations- und Troubleshooting-Dokumente für Nutzer ohne Wiki ergänzt.
@@ -73,8 +83,8 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 ### Compatibility / Kompatibilität
 
 - Game: Data Center
-- Unity: 6000.4.12f1
-- Loader: MelonLoader v0.7.3 Open-Beta
+- Unity: 6000.x, tested with 6000.4.12f1
+- Loader: MelonLoader v0.7.x Open-Beta, tested with 0.7.3
 - Runtime: net6 / CoreCLR
 - Game type: IL2CPP
 

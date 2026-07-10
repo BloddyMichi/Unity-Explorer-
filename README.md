@@ -7,10 +7,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Game-Data%20Center-brightgreen" />
-  <img src="https://img.shields.io/badge/Unity-6000.4.12f1-blue" />
+  <img src="https://img.shields.io/badge/Unity-6000.x%20tested%206000.4.12f1-blue" />
   <img src="https://img.shields.io/badge/Backend-IL2CPP-orange" />
   <img src="https://img.shields.io/badge/Runtime-net6%20%2F%20CoreCLR-purple" />
-  <img src="https://img.shields.io/badge/MelonLoader-0.7.3%20Open--Beta-red" />
+  <img src="https://img.shields.io/badge/MelonLoader-0.7.x%20tested%200.7.3-red" />
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue" />
 </p>
 
@@ -27,7 +27,7 @@ Ziel dieses Forks ist es, UnityExplorer mit folgender Umgebung nutzbar zu machen
 - **Unity 6000**
 - **IL2CPP**
 - **net6 / CoreCLR**
-- **MelonLoader 0.7.3 Open-Beta**
+- **MelonLoader 0.7.x Open-Beta** (getestet mit 0.7.3)
 - **Data Center**
 
 Dieser Fork ist auf Kompatibilität und Stabilität ausgelegt. Einige Standardfunktionen von UnityExplorer können angepasst, verzögert, deaktiviert oder durch sicherere Alternativen ersetzt sein, um Abstürze, Konsolen-Spam oder unsichere Unity-API-Aufrufe zu reduzieren.
@@ -40,10 +40,10 @@ Dieser Fork ist auf Kompatibilität und Stabilität ausgelegt. Einige Standardfu
 |---|---|
 | Spiel | Data Center |
 | Entwickler | Waseku |
-| Unity | 6000.4.12f1 |
+| Unity | 6000.x (getestet mit 6000.4.12f1) |
 | Backend | IL2CPP |
 | Runtime | net6 / CoreCLR |
-| Loader | MelonLoader 0.7.3 Open-Beta |
+| Loader | MelonLoader 0.7.x Open-Beta (getestet mit 0.7.3) |
 | Plattform | Windows |
 | Lizenz | GPL-3.0 |
 
@@ -106,6 +106,13 @@ Wenn du aus diesem Repository baust, kann das Install-Skript die Dateien direkt 
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
 ```
 
+Nützliche Installationsoptionen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+```
+
 Ausführliche Anleitung:
 
 [Installationsanleitung](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
@@ -133,6 +140,12 @@ Wichtige Log-Datei:
 
 ```text
 Data Center\MelonLoader\Latest.log
+```
+
+Support-Paket für Fehlersuche erstellen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
 ```
 
 ---
@@ -271,7 +284,7 @@ The goal of this fork is to make UnityExplorer usable with the following environ
 - **Unity 6000**
 - **IL2CPP**
 - **net6 / CoreCLR**
-- **MelonLoader 0.7.3 Open-Beta**
+- **MelonLoader 0.7.x Open-Beta** (tested with 0.7.3)
 - **Data Center**
 
 This fork focuses on compatibility and stability. Some default UnityExplorer behavior may be changed, delayed, disabled or replaced with safer alternatives to reduce crashes, console spam and unsafe Unity API calls.
@@ -284,10 +297,10 @@ This fork focuses on compatibility and stability. Some default UnityExplorer beh
 |---|---|
 | Game | Data Center |
 | Developer | Waseku |
-| Unity | 6000.4.12f1 |
+| Unity | 6000.x (tested with 6000.4.12f1) |
 | Backend | IL2CPP |
 | Runtime | net6 / CoreCLR |
-| Loader | MelonLoader 0.7.3 Open-Beta |
+| Loader | MelonLoader 0.7.x Open-Beta (tested with 0.7.3) |
 | Platform | Windows |
 | License | GPL-3.0 |
 
@@ -350,6 +363,13 @@ If you build from this repository, the install script can copy the files directl
 powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing
 ```
 
+Useful install options:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -DryRun
+powershell -ExecutionPolicy Bypass -File .\install-datacenter.ps1 -BuildIfMissing -WaitForGameExit
+```
+
 Detailed instructions:
 
 [Installation Guide](https://github.com/BloddyMichi/Unity-Explorer-/wiki/Installation)
@@ -377,6 +397,12 @@ Important log file:
 
 ```text
 Data Center\MelonLoader\Latest.log
+```
+
+Create a support package for troubleshooting:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\collect-datacenter-logs.ps1
 ```
 
 ---

@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using UnityExplorer.CSConsole;
 using UnityExplorer.Runtime;
+using UnityExplorer.UI;
 using UnityExplorer.UI.Panels;
 using UnityExplorer.UI.Widgets.AutoComplete;
 using UniverseLib.UI;
@@ -348,17 +349,7 @@ namespace UnityExplorer.Hooks
         {
             ExplorerCore.Log("Unity 6000 detected, using safe Hook Editor input fallback.");
 
-            EditorInputFallback = UIFactory.CreateInputField(EditorRoot, "EditorInput", "");
-            UIFactory.SetLayoutElement(EditorInputFallback.Component.gameObject, minWidth: 100, minHeight: 30, flexibleWidth: 5000, flexibleHeight: 5000);
-
-            EditorInputFallback.Component.lineType = InputField.LineType.MultiLineNewline;
-            EditorInputFallback.Component.targetGraphic.color = new Color(0.12f, 0.12f, 0.12f);
-            EditorInputFallback.Component.textComponent.alignment = TextAnchor.UpperLeft;
-            EditorInputFallback.Component.textComponent.fontSize = fontSize;
-            EditorInputFallback.Component.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
-            EditorInputFallback.PlaceholderText.alignment = TextAnchor.UpperLeft;
-            EditorInputFallback.PlaceholderText.fontSize = fontSize;
-            EditorInputFallback.PlaceholderText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            EditorInputFallback = Unity6000SafeUI.CreateSafeMultiLineInput(EditorRoot, "EditorInput", "", fontSize);
         }
     }
 }
