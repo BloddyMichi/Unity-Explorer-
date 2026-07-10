@@ -3,8 +3,8 @@
 ## Deutsch
 
 - UnityExplorer für **Data Center** angepasst.
-- Kompatibilität für **MelonLoader v0.7.2 Open-Beta** verbessert.
-- Anpassungen für **Unity 6000.4.2f1 / IL2CPP / net6 CoreCLR** eingebaut.
+- Kompatibilität für **MelonLoader v0.7.3 Open-Beta** verbessert.
+- Anpassungen für **Unity 6000.4.12f1 / IL2CPP / net6 CoreCLR** eingebaut.
 - SafeInspector-Modus hinzugefügt.
 - Automatische Property-Auswertung deaktiviert, um Fehler bei `Transform.hasChanged` zu vermeiden.
 - `SceneManager.sceneCount`-Zugriffe im Object Explorer entschärft.
@@ -33,8 +33,8 @@
 ## English
 
 - Adapted UnityExplorer for **Data Center**.
-- Improved compatibility with **MelonLoader v0.7.2 Open-Beta**.
-- Added adjustments for **Unity 6000.4.2f1 / IL2CPP / net6 CoreCLR**.
+- Improved compatibility with **MelonLoader v0.7.3 Open-Beta**.
+- Added adjustments for **Unity 6000.4.12f1 / IL2CPP / net6 CoreCLR**.
 - Added SafeInspector mode.
 - Disabled automatic property evaluation to avoid `Transform.hasChanged` errors.
 - Hardened Object Explorer against unsafe `SceneManager.sceneCount` calls.

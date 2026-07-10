@@ -73,8 +73,8 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 ### Compatibility / Kompatibilität
 
 - Game: Data Center
-- Unity: 6000.4.2f1
-- Loader: MelonLoader v0.7.2 Open-Beta
+- Unity: 6000.4.12f1
+- Loader: MelonLoader v0.7.3 Open-Beta
 - Runtime: net6 / CoreCLR
 - Game type: IL2CPP
 

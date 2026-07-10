@@ -191,7 +191,7 @@ public class WorldInspector : MouseInspectorBase
                 }
             }
 
-            if (bestObject)
+            if (bestObject != null && bestObject)
             {
                 result = bestObject;
                 return true;
@@ -435,11 +435,11 @@ public class WorldInspector : MouseInspectorBase
             foreach (UnityEngine.Object obj in renderers)
             {
                 Renderer? renderer = obj.TryCast<Renderer>();
-                if (!renderer)
+                if (renderer == null || !renderer)
                     continue;
 
-                GameObject go = renderer.gameObject;
-                if (!go || !go.activeInHierarchy || !renderer.enabled)
+                GameObject? go = renderer.gameObject;
+                if (go == null || !go || !go.activeInHierarchy || !renderer.enabled)
                     continue;
 
                 Bounds bounds = renderer.bounds;
@@ -498,13 +498,13 @@ public class WorldInspector : MouseInspectorBase
 
             // Prefer non-environment renderers when present. This prevents a wall/floor collider
             // behind a desk object from stealing the selection.
-            if (bestPropObject)
+            if (bestPropObject != null && bestPropObject)
             {
                 result = PromoteToUsefulParent(bestPropObject);
                 return true;
             }
 
-            if (bestAnyObject)
+            if (bestAnyObject != null && bestAnyObject)
             {
                 result = PromoteToUsefulParent(bestAnyObject);
                 return true;
