@@ -1,7 +1,8 @@
 param(
     [string]$GameDir = "C:\Program Files (x86)\Steam\steamapps\common\Data Center",
     [switch]$BuildIfMissing,
-    [switch]$SkipBackup
+    [switch]$SkipBackup,
+    [switch]$SkipProcessCheck
 )
 
 $ErrorActionPreference = "Stop"
@@ -64,11 +65,67 @@ function Write-InstalledFile {
     Write-Host "    SHA256 $Hash"
 }
 
-New-Item -ItemType Directory -Force -Path $ModsDir | Out-Null
-New-Item -ItemType Directory -Force -Path $UserLibsDir | Out-Null
+function Get-DataCenterProcesses {
+    $Processes = @()
+
+    foreach ($Process in Get-Process) {
+        $ProcessPath = $null
+        try {
+            $ProcessPath = $Process.Path
+        }
+        catch {
+            $ProcessPath = $null
+        }
+
+        if ($ProcessPath -and $ProcessPath.StartsWith($GameDir, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $Processes += $Process
+        }
+    }
+
+    return $Processes
+}
+
+function Assert-FileIsReplaceable {
+    param([string]$Path)
+
+    if (!(Test-Path -LiteralPath $Path)) {
+        return
+    }
+
+    $Stream = $null
+    try {
+        $Stream = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+    }
+    catch {
+        throw "File is currently locked and cannot be replaced: $Path`nClose Data Center and rerun this installer."
+    }
+    finally {
+        if ($Stream) {
+            $Stream.Dispose()
+        }
+    }
+}
 
 $InstalledModDll = Join-Path $ModsDir "UnityExplorer.ML.IL2CPP.CoreCLR.dll"
 $InstalledUserLib = Join-Path $UserLibsDir "UniverseLib.ML.IL2CPP.Interop.dll"
+
+if (!$SkipProcessCheck) {
+    $RunningGameProcesses = Get-DataCenterProcesses
+    if ($RunningGameProcesses.Count -gt 0) {
+        Write-Host "Data Center appears to be running from this game directory:" -ForegroundColor Yellow
+        foreach ($Process in $RunningGameProcesses) {
+            Write-Host ("  {0} (PID {1})" -f $Process.ProcessName, $Process.Id)
+        }
+
+        throw "Close Data Center before installing UnityExplorer, then rerun this script."
+    }
+}
+
+New-Item -ItemType Directory -Force -Path $ModsDir | Out-Null
+New-Item -ItemType Directory -Force -Path $UserLibsDir | Out-Null
+
+Assert-FileIsReplaceable $InstalledModDll
+Assert-FileIsReplaceable $InstalledUserLib
 
 Backup-ExistingFile $InstalledModDll
 Backup-ExistingFile $InstalledUserLib
