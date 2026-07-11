@@ -11,6 +11,7 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 - Added in-game Data Center runtime status, log opening and support package buttons to the Options panel.
 - Added configurable Unity 6000 safe-mode switches for scene, input, scroll and TimeScale fallbacks.
 - Expanded Object Search with tag, layer, component and active-state filters plus recent/favorite working sets.
+- Added a hover target label that shows the aimed world object's name without starting full Mouse Inspect.
 - Added a manual GitHub Actions release workflow with tag guards, ZIP validation and changelog-derived release notes.
 - Added a generated local Data Center known-issues/support-matrix document.
 - Centralized Unity 6000 safe UI fallback helpers.
@@ -27,6 +28,7 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 - Ingame Data-Center-Runtime-Status, Logs-öffnen und Support-Paket-Buttons im Options-Panel ergänzt.
 - Konfigurierbare Unity-6000-Safe-Mode-Schalter für Scene-, Input-, Scroll- und TimeScale-Fallbacks hinzugefügt.
 - Object Search um Tag-, Layer-, Komponenten- und Aktivitätsfilter sowie Recent/Favorites-Arbeitslisten erweitert.
+- Hover-Zielanzeige ergänzt, die den Namen des anvisierten World-Objekts ohne vollständigen Mouse Inspect anzeigt.
 - Manuellen GitHub-Actions-Release-Workflow mit Tag-Prüfung, ZIP-Validierung und Changelog-basierten Release Notes hinzugefügt.
 - Generierte lokale Data-Center-Known-Issues-/Support-Matrix ergänzt.
 - Unity-6000-Safe-UI-Fallback-Helfer zentralisiert.

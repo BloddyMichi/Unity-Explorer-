@@ -40,6 +40,7 @@
 - Options-Panel um Data-Center-Runtime-Status und Ingame-Support-Paket erweitert.
 - Unity-6000-Safe-Mode-Schalter konfigurierbar gemacht.
 - Object Search um Tag-, Layer-, Komponenten- und Aktivitätsfilter sowie Recent/Favorites erweitert.
+- Hover-Zielanzeige für den Namen des anvisierten World-Objekts ergänzt.
 - Lokalen Known-Issues-/Support-Matrix-Generator ergänzt.
 
 ## English
@@ -82,4 +83,5 @@
 - Added Data Center runtime status and in-game support package creation to the Options panel.
 - Made Unity 6000 safe-mode fallbacks configurable.
 - Expanded Object Search with tag, layer, component and active-state filters plus recent/favorites.
+- Added a hover target label for the aimed world object's name.
 - Added a local known-issues/support-matrix generator.

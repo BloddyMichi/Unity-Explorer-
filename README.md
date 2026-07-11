@@ -157,6 +157,8 @@ powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 
 Im Spiel enthält das Options-Panel zusätzlich einen **Data Center Runtime Status** mit Buttons zum Aktualisieren, Logs öffnen und Support-ZIP erstellen.
 
+Das Options-Panel enthält außerdem **Show target name while aiming**. Wenn diese Option aktiv ist, zeigt UnityExplorer beim Zielen auf ein World-Objekt eine kleine nicht-interaktive Zielanzeige mit dem Objektnamen.
+
 ---
 
 ## Aus dem Source Code bauen
@@ -423,6 +425,8 @@ powershell -ExecutionPolicy Bypass -File .\update-datacenter-known-issues.ps1
 ```
 
 In game, the Options panel also includes a **Data Center Runtime Status** block with buttons to refresh status, open logs and create a support ZIP.
+
+The Options panel also includes **Show target name while aiming**. When enabled, UnityExplorer shows a small non-interactive target label with the object name while aiming at a world object.
 
 ---
 
