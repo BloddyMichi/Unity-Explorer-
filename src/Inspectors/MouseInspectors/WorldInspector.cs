@@ -103,6 +103,25 @@ public class WorldInspector : MouseInspectorBase
             MouseInspector.Instance.ClearHitData();
     }
 
+    internal static bool TryFindAimTarget([NotNullWhen(true)] out GameObject? result, out string source)
+    {
+        result = null;
+        source = string.Empty;
+
+        Camera? camera = EnsureMainCamera(updateInspectorTitle: false, logWhenMissing: false);
+        if (camera == null)
+            return false;
+
+        if (TryFindObjectAtScreenPosition(camera, GetScreenCenter(), out GameObject? centerObject))
+        {
+            result = centerObject;
+            source = "center aim";
+            return true;
+        }
+
+        return false;
+    }
+
     private static Vector2 GetScreenCenter()
     {
         return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
@@ -695,41 +714,48 @@ public class WorldInspector : MouseInspectorBase
     }
 
 
-    private static Camera? EnsureMainCamera()
+    private static Camera? EnsureMainCamera(bool updateInspectorTitle = true, bool logWhenMissing = true)
     {
         if (MainCamera != null)
         {
-            try
-            {
-                MouseInspector.Instance.UpdateInspectorTitle(
-                    $"<b>World Inspector ({MainCamera.name})</b> (press <b>ESC</b> to cancel)"
-                );
-            }
-            catch
-            {
-            }
+            UpdateInspectorCameraTitle(MainCamera, updateInspectorTitle);
 
             return MainCamera;
         }
 
-        if (TryGetValidMainCamera(out var camera))
+        if (TryGetValidMainCamera(out var camera, logWhenMissing))
         {
             MainCamera = camera;
-            MouseInspector.Instance.UpdateInspectorTitle(
-                $"<b>World Inspector ({camera.name})</b> (press <b>ESC</b> to cancel)"
-            );
+            UpdateInspectorCameraTitle(camera, updateInspectorTitle);
             ExplorerCore.Log($"Using '{camera.transform.GetTransformPath(true)}'");
             return camera;
         }
         return null;
     }
 
+    private static void UpdateInspectorCameraTitle(Camera camera, bool updateInspectorTitle)
+    {
+        if (!updateInspectorTitle || MouseInspector.Instance == null)
+            return;
+
+        try
+        {
+            MouseInspector.Instance.UpdateInspectorTitle(
+                $"<b>World Inspector ({camera.name})</b> (press <b>ESC</b> to cancel)"
+            );
+        }
+        catch
+        {
+        }
+    }
+
     private static bool TryGetValidMainCamera(
 #if NETFRAMEWORK
-        out Camera camera)
+        out Camera camera,
 #else
-        [NotNullWhen(true)] out Camera? camera)
+        [NotNullWhen(true)] out Camera? camera,
 #endif
+        bool logWhenMissing = true)
     {
         camera = Camera.main;
         if (camera != null)
@@ -737,7 +763,9 @@ public class WorldInspector : MouseInspectorBase
             return true;
         }
 
-        ExplorerCore.LogWarning("No Camera.main found, trying to find a camera named 'Main Camera' or 'MainCamera'...");
+        if (logWhenMissing)
+            ExplorerCore.LogWarning("No Camera.main found, trying to find a camera named 'Main Camera' or 'MainCamera'...");
+
         camera = Camera.allCameras.FirstOrDefault(
             c => c.name == "Main Camera" || c.name == "MainCamera");
         if (camera != null)
@@ -745,7 +773,9 @@ public class WorldInspector : MouseInspectorBase
             return true;
         }
 
-        ExplorerCore.LogWarning("No camera named 'Main Camera' or 'MainCamera' found, using the first camera created...");
+        if (logWhenMissing)
+            ExplorerCore.LogWarning("No camera named 'Main Camera' or 'MainCamera' found, using the first camera created...");
+
         camera = Camera.allCameras.FirstOrDefault();
         if (camera != null)
         {
@@ -753,7 +783,9 @@ public class WorldInspector : MouseInspectorBase
         }
 
         // If we reach here, no cameras were found at all.
-        ExplorerCore.LogWarning("No valid main cameras found!");
+        if (logWhenMissing)
+            ExplorerCore.LogWarning("No valid main cameras found!");
+
         return false;
     }
 }

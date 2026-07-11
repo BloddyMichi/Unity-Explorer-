@@ -116,6 +116,7 @@ namespace UnityExplorer.UI
 
             // Call some initialize methods
             Notification.Init(UIRoot);
+            WorldHoverLabel.Init(UIRoot);
             if (DataCenterCompatibility.DeferPanelBootstrap)
                 ExplorerCore.Log($"UI Stage: Skip ConsoleController.Init until CSConsole is opened on Unity {Application.unityVersion}");
             else
@@ -140,7 +141,12 @@ namespace UnityExplorer.UI
 
             // If we are doing a Mouse Inspect, we don't need to update anything else.
             if (MouseInspector.Instance != null && MouseInspector.Instance.TryUpdate())
+            {
+                WorldHoverLabel.Hide();
                 return;
+            }
+
+            WorldHoverLabel.Update();
 
             // Update Notification modal
             Notification.Update();

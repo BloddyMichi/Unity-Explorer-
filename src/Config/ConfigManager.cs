@@ -36,6 +36,7 @@ namespace UnityExplorer.Config
         public static ConfigElement<MenuLanguage> Menu_Language;
         public static ConfigElement<KeyCode> World_MouseInspect_Keybind;
         public static ConfigElement<KeyCode> UI_MouseInspect_Keybind;
+        public static ConfigElement<bool> World_Hover_Label;
         public static ConfigElement<bool> Unity6000_EnableSafeMode;
         public static ConfigElement<bool> Unity6000_DisableSceneExplorer;
         public static ConfigElement<bool> Unity6000_UseSafeInputFallbacks;
@@ -166,6 +167,10 @@ namespace UnityExplorer.Config
             UI_MouseInspect_Keybind = new("UI Mouse-Inspect Keybind",
                 "Optional keybind to begin a UI-mode Mouse Inspect.",
                 KeyCode.None);
+
+            World_Hover_Label = new("World Hover Target Label",
+                "Show a small non-interactive label with the aimed world object's name while UnityExplorer is open.",
+                true);
 
             Unity6000_EnableSafeMode = new("Unity 6000 Safe Mode",
                 "Enable Data Center compatibility fallbacks for Unity 6000 / IL2CPP / CoreCLR. Restart recommended when changing this setting.",

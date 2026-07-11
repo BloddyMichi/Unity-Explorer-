@@ -195,7 +195,7 @@ namespace UnityExplorer.UI.Panels
                 new Vector4(6, 6, 6, 6),
                 new Color(0.08f, 0.08f, 0.08f));
 
-            UIFactory.SetLayoutElement(block, minHeight: 110, flexibleHeight: 0, flexibleWidth: 9999);
+            UIFactory.SetLayoutElement(block, minHeight: 142, flexibleHeight: 0, flexibleWidth: 9999);
 
             Text header = UIFactory.CreateLabel(
                 block,
@@ -215,6 +215,8 @@ namespace UnityExplorer.UI.Panels
             hint.color = new Color(0.75f, 0.75f, 0.75f);
             UIFactory.SetLayoutElement(hint.gameObject, minHeight: 24, flexibleWidth: 9999, flexibleHeight: 0);
 
+            CreateWorldHoverTargetToggle(block);
+
             CreateMouseInspectKeybindRow(
                 block,
                 "World Inspect",
@@ -226,6 +228,54 @@ namespace UnityExplorer.UI.Panels
                 "UI Inspect",
                 ConfigManager.UI_MouseInspect_Keybind,
                 KeyCode.F9);
+        }
+
+        private void CreateWorldHoverTargetToggle(GameObject parent)
+        {
+            GameObject row = UIFactory.CreateHorizontalGroup(
+                parent,
+                "WorldHoverTargetLabelRow",
+                true,
+                false,
+                true,
+                true,
+                6,
+                new Vector4(0, 0, 0, 0));
+
+            UIFactory.SetLayoutElement(row, minHeight: 28, flexibleHeight: 0, flexibleWidth: 9999);
+
+            Text labelText = UIFactory.CreateLabel(
+                row,
+                "WorldHoverTargetLabelText",
+                "Show target name while aiming",
+                TextAnchor.MiddleLeft);
+
+            UIFactory.SetLayoutElement(labelText.gameObject, minWidth: 220, minHeight: 24, flexibleWidth: 9999, flexibleHeight: 0);
+
+            GameObject toggleObj = UIFactory.CreateToggle(
+                row,
+                "WorldHoverTargetLabelToggle",
+                out Toggle toggle,
+                out Text toggleText);
+
+            toggle.isOn = ConfigManager.World_Hover_Label.Value;
+            toggleText.text = toggle.isOn ? "On" : "Off";
+
+            UIFactory.SetLayoutElement(toggleObj, minWidth: 90, minHeight: 24, flexibleWidth: 0, flexibleHeight: 0);
+            UIFactory.SetToggleValueChangedListener(toggleObj, toggle, value =>
+            {
+                ConfigManager.World_Hover_Label.Value = value;
+                toggleText.text = value ? "On" : "Off";
+
+                try
+                {
+                    ConfigManager.Handler.SaveConfig();
+                }
+                catch (Exception ex)
+                {
+                    ExplorerCore.LogWarning("Failed to save World Hover Target Label setting: " + ex.Message);
+                }
+            });
         }
 
         private void CreateMouseInspectKeybindRow(
