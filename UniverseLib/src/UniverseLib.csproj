@@ -48,7 +48,7 @@
     </PropertyGroup>
     <!-- NuGet -->
     <ItemGroup>
-        <PackageReference Include="HarmonyX" Version="2.5.2" IncludeAssets="compile" />
+        <PackageReference Include="HarmonyX" Version="2.14.0" IncludeAssets="compile" />
         <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.19.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
