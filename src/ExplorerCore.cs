@@ -21,6 +21,9 @@ namespace UnityExplorer;
 public static class ExplorerCore
 {
     public const string NAME = "UnityExplorer";
+    // Upstream UnityExplorer base version this fork is built on. This value is
+    // logged at runtime and drives the assembly version. The Data Center fork's
+    // own release series (v1.x) is tracked separately in CHANGELOG.md.
     public const string VERSION = "4.13.5";
     public const string AUTHOR = "Sinai, yukieiji";
     public const string GUID = "com.sinai.unityexplorer";
