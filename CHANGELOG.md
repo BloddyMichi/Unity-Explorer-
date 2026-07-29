@@ -56,6 +56,7 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 
 - **Il2CppInterop `1.0.0` → `1.5.1`** (`src` and `UniverseLib`, Interop/CoreCLR configs) to match the Il2CppInterop runtime bundled with MelonLoader 0.7.3 (`1.5.1-ci.845`).
 - **HarmonyX `2.5.2` → `2.14.0`** (`src` and `UniverseLib`, compile-only). Runtime patching still uses MelonLoader's force-resolved `0Harmony.dll`; only the compile-time API surface changes.
+- **Tomlet `3.1.3` → `3.2.2`** (`src`, bundled with the mod). Stays within major `3.x` so the config code (`TomlParser.ParseFile`, `TomlDocument.Put(key, value, bool)`) keeps working; `4.x`/`6.x` are deferred as they change that API.
 
 ## v1.0.1 - CoreCLR build cleanup
 
