@@ -59,8 +59,8 @@
         <PackageReference Include="Il2CppAssemblyUnhollower.BaseLib" Version="0.4.22" IncludeAssets="compile" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)' == 'Release_IL2CPP_Interop_BIE' or '$(Configuration)' == 'Release_IL2CPP_Interop_ML'">
-        <PackageReference Include="Il2CppInterop.Common" Version="1.0.0" />
-        <PackageReference Include="Il2CppInterop.Runtime" Version="1.0.0" />
+        <PackageReference Include="Il2CppInterop.Common" Version="1.5.1" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.1" />
     </ItemGroup>
     <!-- Assembly References -->
     <ItemGroup Condition="'$(Configuration)' == 'Release_Mono'">

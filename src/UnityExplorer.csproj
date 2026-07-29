@@ -153,8 +153,8 @@
 
   <!-- il2cpp Interop nuget -->
   <ItemGroup Condition="'$(Configuration)'=='BIE_Cpp_CoreCLR' or '$(Configuration)'=='BIE_Unity_Cpp_CoreCLR' or '$(Configuration)'=='ML_Cpp_CoreCLR' or '$(Configuration)'=='STANDALONE_Cpp_CoreCLR'">
-    <PackageReference Include="Il2CppInterop.Common" Version="1.0.0" />
-    <PackageReference Include="Il2CppInterop.Runtime" Version="1.0.0" />
+    <PackageReference Include="Il2CppInterop.Common" Version="1.5.1" />
+    <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.1" />
   </ItemGroup>
 
   <!-- BIE il2cpp Interop -->
