@@ -101,8 +101,10 @@ public static class SceneHandler
                 try
                 {
                     string? scenePath = (string?)method.Invoke(null, new object[] { i });
+                    // string.IsNullOrEmpty lacks the [NotNullWhen(false)] annotation on
+                    // the net35 reference assembly, so null-forgive after the guard.
                     if (!string.IsNullOrEmpty(scenePath))
-                        AllSceneNames.Add(scenePath);
+                        AllSceneNames.Add(scenePath!);
                 }
                 catch (Exception ex)
                 {

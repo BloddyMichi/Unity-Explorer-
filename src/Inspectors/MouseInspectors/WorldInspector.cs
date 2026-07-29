@@ -330,6 +330,7 @@ public class WorldInspector : MouseInspectorBase
                 if (type != null && string.Equals(type.Name, typeName, StringComparison.Ordinal))
                     return true;
 
+#if CPP
                 try
                 {
                     string? il2CppName = component.GetIl2CppType()?.Name;
@@ -339,6 +340,7 @@ public class WorldInspector : MouseInspectorBase
                 catch
                 {
                 }
+#endif
             }
         }
         catch
@@ -387,6 +389,7 @@ public class WorldInspector : MouseInspectorBase
                 }
 
                 string componentName = component.GetType().FullName ?? component.GetType().Name;
+#if CPP
                 try
                 {
                     componentName = component.GetIl2CppType()?.FullName ?? componentName;
@@ -394,6 +397,7 @@ public class WorldInspector : MouseInspectorBase
                 catch
                 {
                 }
+#endif
 
                 ExplorerCore.Log($" - {componentName}");
             }
