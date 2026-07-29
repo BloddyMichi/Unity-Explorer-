@@ -6,6 +6,14 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 
 ### English
 
+- Repository housekeeping: fixed the corrupted (mojibake) `src/.editorconfig` and rewrote it as clean UTF-8.
+- Aligned the Unity editor package version (`UnityEditorPackage/package.json`) with the assembly version `4.13.5`.
+- Documented the version scheme: `4.13.5` is the upstream UnityExplorer base; the fork release series (`v1.x`) lives in this changelog.
+- Pinned the .NET SDK via `global.json` for reproducible builds.
+- Unified `Microsoft.Unity.Analyzers` to `1.19.0` across both projects.
+- Added a `CONTRIBUTING.md` with branch, build and style guidance.
+- Added a pull-request CI workflow that compiles the Data Center CoreCLR target and runs unit tests.
+- Added a first unit-test project (`tests/UnityExplorer.Tests`) covering platform-independent utility logic.
 - Added a support package script for collecting Data Center logs, file hashes and detected runtime versions.
 - Improved `install-datacenter.ps1` with dry-run, wait-for-exit, MelonLoader preflight and duplicate-file warnings.
 - Added a manual GitHub Actions release workflow for Data Center CoreCLR builds.
@@ -18,6 +26,14 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 
 ### Deutsch
 
+- Repository-Aufräumarbeiten: beschädigte (Mojibake-)`src/.editorconfig` behoben und als sauberes UTF-8 neu geschrieben.
+- Version des Unity-Editor-Pakets (`UnityEditorPackage/package.json`) an die Assembly-Version `4.13.5` angeglichen.
+- Versionsschema dokumentiert: `4.13.5` ist die UnityExplorer-Upstream-Basis; die Fork-Release-Serie (`v1.x`) steht in diesem Changelog.
+- .NET-SDK über `global.json` für reproduzierbare Builds gepinnt.
+- `Microsoft.Unity.Analyzers` in beiden Projekten auf `1.19.0` vereinheitlicht.
+- `CONTRIBUTING.md` mit Branch-, Build- und Style-Hinweisen ergänzt.
+- Pull-Request-CI-Workflow ergänzt, der das Data-Center-CoreCLR-Ziel kompiliert und Unit-Tests ausführt.
+- Erstes Unit-Test-Projekt (`tests/UnityExplorer.Tests`) für plattformunabhängige Utility-Logik hinzugefügt.
 - Support-Paket-Skript zum Sammeln von Data-Center-Logs, Datei-Hashes und erkannten Runtime-Versionen hinzugefügt.
 - `install-datacenter.ps1` mit Dry-Run, Warten auf Spielende, MelonLoader-Vorprüfung und Warnungen vor doppelten Dateien verbessert.
 - Manuellen GitHub-Actions-Release-Workflow für Data-Center-CoreCLR-Builds hinzugefügt.
