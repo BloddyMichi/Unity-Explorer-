@@ -44,6 +44,18 @@ All notable changes to this Data Center-focused UnityExplorer fork are documente
 - Lokale zweisprachige Installations- und Troubleshooting-Dokumente für Nutzer ohne Wiki ergänzt.
 - Doppelte GitHub-Issue-Vorlagen bereinigt und den Kontaktlink zur Installationsanleitung korrigiert.
 
+### Dependency updates (pending in-game verification) / Dependency-Updates (In-Game-Verifikation ausstehend)
+
+> These bumps were prepared as isolated commits and have **not** been compiled or
+> tested against Data Center yet. Verify each in-game (see `CONTRIBUTING.md`)
+> before releasing; revert individually if a game regression appears.
+>
+> Diese Bumps wurden als isolierte Commits vorbereitet und sind noch **nicht**
+> kompiliert oder gegen Data Center getestet. Vor einem Release jeweils im Spiel
+> verifizieren (siehe `CONTRIBUTING.md`); bei einer Regression einzeln zurückrollen.
+
+- **Il2CppInterop `1.0.0` → `1.5.1`** (`src` and `UniverseLib`, Interop/CoreCLR configs) to match the Il2CppInterop runtime bundled with MelonLoader 0.7.3 (`1.5.1-ci.845`).
+
 ## v1.0.1 - CoreCLR build cleanup
 
 ### English
