@@ -116,7 +116,11 @@ namespace UnityExplorer.Inspectors.MouseInspectors
                 position = mousePos
             };
 
+#if CPP
             Il2CppSystem.Collections.Generic.List<RaycastResult> list = new();
+#else
+            System.Collections.Generic.List<RaycastResult> list = new();
+#endif
             currentEventSystem.RaycastAll(ped, list);
 
             for (int i = 0; i < list.Count; i++)

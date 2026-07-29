@@ -86,7 +86,7 @@ namespace UnityExplorer.UI
             else
                 DisplayManager.Init();
 
-            (lastScreenWidth, lastScreenHeight) = GetCurrentScreenDimensions();
+            GetCurrentScreenDimensions(out lastScreenWidth, out lastScreenHeight);
 
             // Create UI.
             CreateTopNavBar();
@@ -152,7 +152,7 @@ namespace UnityExplorer.UI
             TimeScaleWidget.Instance?.Update();
 
             // check screen dimension change
-            (int currentWidth, int currentHeight) = GetCurrentScreenDimensions();
+            GetCurrentScreenDimensions(out int currentWidth, out int currentHeight);
             if (currentWidth != lastScreenWidth || currentHeight != lastScreenHeight)
                 OnScreenDimensionsChanged();
         }
@@ -230,7 +230,7 @@ namespace UnityExplorer.UI
 
         private static void OnScreenDimensionsChanged()
         {
-            (lastScreenWidth, lastScreenHeight) = GetCurrentScreenDimensions();
+            GetCurrentScreenDimensions(out lastScreenWidth, out lastScreenHeight);
 
             foreach (KeyValuePair<Panels, UEPanel> panel in UIPanels)
             {
@@ -308,13 +308,18 @@ namespace UnityExplorer.UI
             RefreshLocalizedTexts();
         }
 
-        private static (int Width, int Height) GetCurrentScreenDimensions()
+        private static void GetCurrentScreenDimensions(out int width, out int height)
         {
             if (UseUnity6000Fallbacks)
-                return (Screen.width, Screen.height);
+            {
+                width = Screen.width;
+                height = Screen.height;
+                return;
+            }
 
             Display display = DisplayManager.ActiveDisplay;
-            return (display.renderingWidth, display.renderingHeight);
+            width = display.renderingWidth;
+            height = display.renderingHeight;
         }
 
         private static void TryCreatePanel(Panels panelType, Func<UEPanel> factory)
