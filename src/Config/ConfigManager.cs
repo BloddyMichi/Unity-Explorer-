@@ -25,6 +25,7 @@ namespace UnityExplorer.Config
         public static ConfigElement<bool> Disable_EventSystem_Override;
         public static ConfigElement<bool> Disable_Setup_Force_ReLoad_ManagedAssemblies;
         public static ConfigElement<bool> Bypass_UniverseLib_ICall;
+        public static ConfigElement<bool> Unity6000_Experimental_Native_Paths;
         public static ConfigElement<int> Target_Display;
         public static ConfigElement<bool> Force_Unlock_Mouse;
         public static ConfigElement<KeyCode> Force_Unlock_Toggle;
@@ -128,6 +129,13 @@ namespace UnityExplorer.Config
 
             Bypass_UniverseLib_ICall = new("Bypass UniverseLib ICall",
                 "If enabled, UnityExplorer will bypass UniverseLib's ICall Reflection system. This may help with compatibility in some games.\n<b>May require restart to take effect.</b>",
+                false);
+
+            Unity6000_Experimental_Native_Paths = new("Unity 6000 Experimental Native Paths",
+                "Unity 6000 safe mode disables paths that can hard-crash (AccessViolation) on IL2CPP/CoreCLR: " +
+                "Scene Explorer, GameObject child-transform traversal, the pooled inspector ScrollView, and the TimeScale widget. " +
+                "Enable this to attempt the real paths instead — useful if your game/Il2CppInterop version no longer crashes. " +
+                "<b>Experimental: may crash the game. Restart required to take effect.</b>",
                 false);
 
             Default_Output_Path = new("Default Output Path",

@@ -12,7 +12,7 @@ namespace UnityExplorer.ObjectExplorer
     {
         public ObjectExplorerPanel Parent { get; }
 
-        private static bool Unity6000SafeSceneMode => ExplorerCore.IsUnity6000OrNewer;
+        private static bool Unity6000SafeSceneMode => ExplorerCore.Unity6000RestrictNativePaths;
 
         public SceneExplorer(ObjectExplorerPanel parent)
         {

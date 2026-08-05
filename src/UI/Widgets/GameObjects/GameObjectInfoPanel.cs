@@ -414,17 +414,30 @@ namespace UnityExplorer.UI.Widgets
 
         private static List<string> layerToNames;
 
+        // Unity's built-in layers have engine-guaranteed names; these need no
+        // native LayerMask.LayerToName() call, so they are safe even on the
+        // Unity 6000 IL2CPP path where that API can crash.
+        private static readonly Dictionary<int, string> builtinLayerNames = new()
+        {
+            [0] = "Default",
+            [1] = "TransparentFX",
+            [2] = "Ignore Raycast",
+            [4] = "Water",
+            [5] = "UI",
+        };
+
         private static void GetLayerNames()
         {
             layerToNames = new List<string>();
 
             if (ExplorerCore.IsUnity6000OrNewer)
             {
-                // Unity 6000 IL2CPP/CoreCLR can crash in LayerMask.LayerToName().
-                // Use numeric layer labels in this runtime path.
-                ExplorerCore.Log("GameObjectInfoPanel: Unity6000 safe mode uses numeric layer labels.");
+                // LayerMask.LayerToName() can crash on Unity 6000 IL2CPP/CoreCLR,
+                // so avoid it: use the engine's fixed built-in layer names where
+                // they exist and fall back to numeric labels for user layers.
+                ExplorerCore.Log("GameObjectInfoPanel: Unity6000 safe mode uses built-in layer names + numeric labels.");
                 for (int i = 0; i < 32; i++)
-                    layerToNames.Add(i.ToString());
+                    layerToNames.Add(builtinLayerNames.TryGetValue(i, out string builtin) ? builtin : i.ToString());
                 return;
             }
 

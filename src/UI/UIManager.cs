@@ -285,7 +285,7 @@ namespace UnityExplorer.UI
             UIFactory.SetLayoutGroup<HorizontalLayoutGroup>(NavbarTabButtonHolder, false, true, true, true, 4, 2, 2, 2, 2);
 
             // Time scale widget
-            if (UseUnity6000Fallbacks)
+            if (ExplorerCore.Unity6000RestrictNativePaths)
                 ExplorerCore.Log($"UI Stage: Navbar - Skip TimeScaleWidget on Unity {Application.unityVersion}");
             else
                 TimeScaleWidget.SetUp(navbarPanel);

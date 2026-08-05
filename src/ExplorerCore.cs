@@ -34,6 +34,18 @@ public static class ExplorerCore
     public static bool IsUnity6000OrNewer { get; } =
         (Application.unityVersion ?? string.Empty).StartsWith("6000.", StringComparison.Ordinal);
 
+    /// <summary>
+    /// True when the Unity 6000 safe mode should restrict the paths that can
+    /// hard-crash (AccessViolation / native wrapper invalidation) on IL2CPP:
+    /// Scene enumeration, child-transform traversal, the pooled inspector
+    /// ScrollView and the TimeScale widget. These are managed by native SEH
+    /// crashes that try/catch cannot handle, so they stay off unless the user
+    /// opts in via the "Unity 6000 Experimental Native Paths" config. The
+    /// null-conditional keeps this safe if evaluated before config init.
+    /// </summary>
+    public static bool Unity6000RestrictNativePaths =>
+        IsUnity6000OrNewer && !(ConfigManager.Unity6000_Experimental_Native_Paths?.Value ?? false);
+
     public static IExplorerLoader Loader { get; private set; }
     public static string ExplorerFolder => Path.Combine(Loader.ExplorerFolderDestination, Loader.ExplorerFolderName);
     public const string DEFAULT_EXPLORER_FOLDER_NAME = "sinai-dev-UnityExplorer";
@@ -76,7 +88,7 @@ public static class ExplorerCore
     // Default delay is 1 second which is usually enough.
     static void LateInit()
     {
-        if (IsUnity6000OrNewer)
+        if (Unity6000RestrictNativePaths)
         {
             Log($"Skipping SceneHandler.Init on Unity {Application.unityVersion} due to Unity 6 IL2CPP/CoreCLR stability issues.");
         }

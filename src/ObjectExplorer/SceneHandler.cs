@@ -44,7 +44,7 @@ public static class SceneHandler
 
     public static bool DontDestroyExists { get; private set; }
 
-    internal static bool Unity6000SafeSceneMode => ExplorerCore.IsUnity6000OrNewer;
+    internal static bool Unity6000SafeSceneMode => ExplorerCore.Unity6000RestrictNativePaths;
 
     private const string dontDestroyName = "DontDestroyOnLoad";
 
