@@ -112,7 +112,7 @@ namespace UnityExplorer.Inspectors
             if (!Target)
                 return Enumerable.Empty<GameObject>();
 
-            if (ExplorerCore.IsUnity6000OrNewer)
+            if (ExplorerCore.Unity6000RestrictNativePaths)
             {
                 if (!loggedUnity6000TransformTreeFallback)
                 {
@@ -270,7 +270,7 @@ namespace UnityExplorer.Inspectors
             UIRoot = UIFactory.CreateVerticalGroup(parent, "GameObjectInspector", true, false, true, true, 5,
                 new Vector4(4, 4, 4, 4), new Color(0.065f, 0.065f, 0.065f));
 
-            if (ExplorerCore.IsUnity6000OrNewer)
+            if (ExplorerCore.Unity6000RestrictNativePaths)
             {
                 // Unity 6000 IL2CPP/CoreCLR can crash inside UIFactory.CreateScrollView during pooled inspector creation.
                 // Use a simple content container instead of ScrollRect in this runtime path.
