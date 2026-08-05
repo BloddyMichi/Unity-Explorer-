@@ -24,8 +24,7 @@ namespace UnityExplorer.UI.Panels
         private readonly List<UIModel> tabPages = new();
         private readonly List<ButtonRef> tabButtons = new();
 
-        private static bool Unity6000SafeObjectExplorerMode =>
-            Application.unityVersion != null && Application.unityVersion.StartsWith("6000");
+        private static bool Unity6000SafeObjectExplorerMode => ExplorerCore.IsUnity6000OrNewer;
 
         public ObjectExplorerPanel(UIBase owner) : base(owner)
         {

@@ -12,8 +12,7 @@ namespace UnityExplorer.ObjectExplorer
     {
         public ObjectExplorerPanel Parent { get; }
 
-        private static bool Unity6000SafeSceneMode =>
-            Application.unityVersion != null && Application.unityVersion.StartsWith("6000");
+        private static bool Unity6000SafeSceneMode => ExplorerCore.IsUnity6000OrNewer;
 
         public SceneExplorer(ObjectExplorerPanel parent)
         {

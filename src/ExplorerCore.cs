@@ -28,7 +28,11 @@ public static class ExplorerCore
     public const string AUTHOR = "Sinai, yukieiji";
     public const string GUID = "com.sinai.unityexplorer";
 
-    public static bool IsUnity6000OrNewer => Application.unityVersion.StartsWith("6000.", StringComparison.Ordinal);
+    // The Unity version never changes at runtime, so evaluate the (native,
+    // IL2CPP-marshalled) Application.unityVersion access once and cache it.
+    // This is the single source of truth for the Unity 6000 safe-mode gate.
+    public static bool IsUnity6000OrNewer { get; } =
+        (Application.unityVersion ?? string.Empty).StartsWith("6000.", StringComparison.Ordinal);
 
     public static IExplorerLoader Loader { get; private set; }
     public static string ExplorerFolder => Path.Combine(Loader.ExplorerFolderDestination, Loader.ExplorerFolderName);
