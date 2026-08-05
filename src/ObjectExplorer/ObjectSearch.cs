@@ -252,9 +252,11 @@ namespace UnityExplorer.ObjectExplorer
 
             // RESULTS SCROLL POOL
 
-            dataHandler = new ButtonListHandler<object, ButtonCell>(resultsScrollPool, GetEntries, SetCell, ShouldDisplayCell, OnCellClicked);
+            // Create the scroll pool first so the handler captures a valid
+            // ScrollPool reference (previously it was constructed with a null).
             resultsScrollPool = UIFactory.CreateScrollPool<ButtonCell>(uiRoot, "ResultsList", out GameObject scrollObj,
                 out GameObject scrollContent);
+            dataHandler = new ButtonListHandler<object, ButtonCell>(resultsScrollPool, GetEntries, SetCell, ShouldDisplayCell, OnCellClicked);
 
             resultsScrollPool.Initialize(dataHandler);
             UIFactory.SetLayoutElement(scrollObj, flexibleHeight: 9999);
