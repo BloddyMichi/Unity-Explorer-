@@ -250,7 +250,6 @@ Offene oder laufende Arbeiten:
 
 - „Object Search (Safe)" für Unity 6000 erweitern
 - experimentelle native Pfade am Spiel testen (Szenen, Transform-Tree)
-- Upstream-Fix „non-atlas sprites" prüfen/übernehmen
 - weitere Data-Center-Updates testen (aktuell v1.1.8)
 
 Den vollständigen Stand (inkl. erledigter Punkte) findest du im Projekt-Board:
@@ -522,7 +521,6 @@ Open or ongoing work:
 
 - extend "Object Search (Safe)" for Unity 6000
 - test experimental native paths in-game (scenes, transform tree)
-- review/port the upstream "non-atlas sprites" fix
 - test additional Data Center updates (currently v1.1.8)
 
 The full status (including completed items) is on the project board:

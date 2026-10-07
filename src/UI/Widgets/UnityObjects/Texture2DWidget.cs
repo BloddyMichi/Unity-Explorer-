@@ -43,11 +43,17 @@ namespace UnityExplorer.UI.Widgets
             }
             else if (target.TryCast<Image>() is Image image)
             {
-                if (image.sprite.packed && image.sprite.packingMode == SpritePackingMode.Tight)
-                    texture = image.sprite.texture;
+                Sprite imageSprite = image.sprite;
+                if (!imageSprite)
+                {
+                    // Image has no sprite assigned; nothing to display (avoids a NRE).
+                    texture = null;
+                }
+                else if (imageSprite.packed && imageSprite.packingMode == SpritePackingMode.Tight)
+                    texture = imageSprite.texture;
                 else
                 {
-                    texture = TextureHelper.CopyTexture(image.sprite.texture, image.sprite.textureRect);
+                    texture = TextureHelper.CopyTexture(imageSprite.texture, imageSprite.textureRect);
                     shouldDestroyTexture = true;
                 }
             }
