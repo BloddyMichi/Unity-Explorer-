@@ -11,6 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/BloddyMichi/Unity-Explorer-/releases/latest"><img src="https://img.shields.io/github/v/release/BloddyMichi/Unity-Explorer-?label=Release&color=brightgreen" alt="Latest release"></a>
+  <a href="https://github.com/BloddyMichi/Unity-Explorer-/actions/workflows/build-datacenter-coreclr.yml"><img src="https://github.com/BloddyMichi/Unity-Explorer-/actions/workflows/build-datacenter-coreclr.yml/badge.svg" alt="Build Data Center CoreCLR"></a>
   <img src="https://img.shields.io/badge/Game-Data%20Center-brightgreen" alt="Game: Data Center">
   <img src="https://img.shields.io/badge/Unity-6000.4.12f1-blue" alt="Unity 6000.4.12f1">
   <img src="https://img.shields.io/badge/Backend-IL2CPP-orange" alt="Backend: IL2CPP">
@@ -33,6 +34,8 @@
 <a id="deutsch"></a>
 
 ## 🇩🇪 Deutsch
+
+**Inhalt:** [Übersicht](#übersicht) · [Kompatibilität](#kompatibilität) · [Funktionen](#funktionen) · [Projektstatus](#projektstatus) · [Installation](#installation) · [Nutzung](#nutzung) · [Aus dem Source Code bauen](#aus-dem-source-code-bauen) · [Dokumentation](#dokumentation) · [Fehler melden](#fehler-melden) · [Community / Support](#community--support) · [Roadmap](#roadmap) · [Hinweis](#hinweis) · [Lizenz](#lizenz) · [Credits](#credits)
 
 ## Übersicht
 
@@ -294,6 +297,8 @@ Gepflegt von:
 # 🇬🇧 English
 
 [⬆ Zurück nach oben / Back to top](#deutsch)
+
+**Contents:** [Overview](#overview) · [Compatibility](#compatibility) · [Features](#features) · [Project Status](#project-status) · [Installation](#installation-1) · [Basic Usage](#basic-usage) · [Build From Source](#build-from-source) · [Documentation](#documentation) · [Reporting Bugs](#reporting-bugs) · [Community / Support](#community--support-1) · [Roadmap](#roadmap-1) · [Disclaimer](#disclaimer) · [License](#license) · [Credits](#credits-1)
 
 ## Overview
 
