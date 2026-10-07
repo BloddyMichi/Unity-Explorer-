@@ -1,4 +1,8 @@
-# UnityExplorer – Data Center Safe Fork
+<p align="center">
+  <img src="img/icon.png" alt="UnityExplorer" width="90">
+</p>
+
+<h1 align="center">UnityExplorer – Data Center Safe Fork</h1>
 
 <p align="center">
   <strong>Kompatibilitäts-Fork von UnityExplorer für Data Center, Unity 6000, IL2CPP und MelonLoader CoreCLR.</strong><br>
@@ -6,15 +10,27 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Game-Data%20Center-brightgreen" />
-  <img src="https://img.shields.io/badge/Unity-6000.x%20tested%206000.4.12f1-blue" />
-  <img src="https://img.shields.io/badge/Backend-IL2CPP-orange" />
-  <img src="https://img.shields.io/badge/Runtime-net6%20%2F%20CoreCLR-purple" />
-  <img src="https://img.shields.io/badge/MelonLoader-0.7.x%20tested%200.7.3-red" />
-  <img src="https://img.shields.io/badge/License-GPL--3.0-blue" />
+  <a href="https://github.com/BloddyMichi/Unity-Explorer-/releases/latest"><img src="https://img.shields.io/github/v/release/BloddyMichi/Unity-Explorer-?label=Release&color=brightgreen" alt="Latest release"></a>
+  <img src="https://img.shields.io/badge/Game-Data%20Center-brightgreen" alt="Game: Data Center">
+  <img src="https://img.shields.io/badge/Unity-6000.4.12f1-blue" alt="Unity 6000.4.12f1">
+  <img src="https://img.shields.io/badge/Backend-IL2CPP-orange" alt="Backend: IL2CPP">
+  <img src="https://img.shields.io/badge/Runtime-net6%20%2F%20CoreCLR-purple" alt="Runtime: net6 / CoreCLR">
+  <img src="https://img.shields.io/badge/MelonLoader-0.7.3-red" alt="MelonLoader 0.7.3">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="License: GPL-3.0"></a>
+  <a href="https://discord.gg/cRS4bCKUbe"><img src="https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white" alt="Join Discord"></a>
+</p>
+
+<p align="center">
+  <a href="#deutsch">🇩🇪 Deutsch</a> &nbsp;·&nbsp; <a href="#english">🇬🇧 English</a>
+</p>
+
+<p align="center">
+  <img src="img/preview.png" alt="UnityExplorer running inside Data Center — Scene Explorer, Inspector, C# Console and Object Search" width="100%">
 </p>
 
 ---
+
+<a id="deutsch"></a>
 
 ## 🇩🇪 Deutsch
 
@@ -273,7 +289,11 @@ Gepflegt von:
 
 ---
 
+<a id="english"></a>
+
 # 🇬🇧 English
+
+[⬆ Zurück nach oben / Back to top](#deutsch)
 
 ## Overview
 
