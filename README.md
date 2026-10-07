@@ -246,16 +246,14 @@ Für Fragen, Feedback, Fehlerberichte oder Modding-Diskussionen kannst du dem Di
 
 ## Roadmap
 
-Geplante oder laufende Arbeiten:
+Offene oder laufende Arbeiten:
 
-- Input- und Mouse-Focus-Verhalten verbessern
-- weitere Data-Center-Updates testen
-- Installationsdokumentation verbessern
-- Release-ZIP-Struktur prüfen
-- bekannte Probleme genauer dokumentieren
-- bessere Hinweise für MelonLoader-Nutzer ergänzen
+- „Object Search (Safe)" für Unity 6000 erweitern
+- experimentelle native Pfade am Spiel testen (Szenen, Transform-Tree)
+- Upstream-Fix „non-atlas sprites" prüfen/übernehmen
+- weitere Data-Center-Updates testen (aktuell v1.1.8)
 
-Projekt-Board:
+Den vollständigen Stand (inkl. erledigter Punkte) findest du im Projekt-Board:
 
 [Unity Explorer – Data Center Roadmap](https://github.com/users/BloddyMichi/projects/1)
 
@@ -520,16 +518,14 @@ For questions, feedback, bug reports or modding discussions, you can join the Di
 
 ## Roadmap
 
-Planned or ongoing work:
+Open or ongoing work:
 
-- improve input and mouse focus behavior
-- test additional Data Center game updates
-- improve installation documentation
-- verify release ZIP structure
-- document known issues more clearly
-- improve compatibility notes for MelonLoader users
+- extend "Object Search (Safe)" for Unity 6000
+- test experimental native paths in-game (scenes, transform tree)
+- review/port the upstream "non-atlas sprites" fix
+- test additional Data Center updates (currently v1.1.8)
 
-Project board:
+The full status (including completed items) is on the project board:
 
 [Unity Explorer – Data Center Roadmap](https://github.com/users/BloddyMichi/projects/1)
 
