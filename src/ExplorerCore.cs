@@ -35,16 +35,16 @@ public static class ExplorerCore
         (Application.unityVersion ?? string.Empty).StartsWith("6000.", StringComparison.Ordinal);
 
     /// <summary>
-    /// True when the Unity 6000 safe mode should restrict the paths that can
-    /// hard-crash (AccessViolation / native wrapper invalidation) on IL2CPP:
-    /// Scene enumeration, child-transform traversal, the pooled inspector
-    /// ScrollView and the TimeScale widget. These are managed by native SEH
-    /// crashes that try/catch cannot handle, so they stay off unless the user
-    /// opts in via the "Unity 6000 Experimental Native Paths" config. The
-    /// null-conditional keeps this safe if evaluated before config init.
+    /// Unity 6000 compatibility "safe mode": when true, the paths that could
+    /// hard-crash (AccessViolation / native wrapper invalidation) on older
+    /// IL2CPP/Il2CppInterop are disabled or replaced — scene enumeration,
+    /// child-transform traversal, the pooled inspector ScrollView, deferred
+    /// panel creation and the TimeScale widget. It is OFF by default so the
+    /// explorer runs normally; enable the "Unity 6000 Safe Mode" config only if
+    /// you hit crashes. Snapshotted once after config init (see <see cref="Init"/>)
+    /// so toggling needs a restart and never leaves a half-applied UI state.
     /// </summary>
-    public static bool Unity6000RestrictNativePaths =>
-        IsUnity6000OrNewer && !(ConfigManager.Unity6000_Experimental_Native_Paths?.Value ?? false);
+    public static bool Unity6000RestrictNativePaths { get; private set; }
 
     public static IExplorerLoader Loader { get; private set; }
     public static string ExplorerFolder => Path.Combine(Loader.ExplorerFolderDestination, Loader.ExplorerFolderName);
@@ -68,6 +68,10 @@ public static class ExplorerCore
         CheckLegacyExplorerFolder();
         Directory.CreateDirectory(ExplorerFolder);
         ConfigManager.Init(Loader.ConfigHandler);
+
+        // Snapshot the Unity 6000 safe-mode decision once, after config load, so
+        // every gate reads a stable value and toggling the config needs a restart.
+        Unity6000RestrictNativePaths = IsUnity6000OrNewer && ConfigManager.Unity6000_Safe_Mode.Value;
 
         Universe.Init(ConfigManager.Startup_Delay_Time.Value, LateInit, Log, new()
         {

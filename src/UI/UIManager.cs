@@ -92,7 +92,7 @@ namespace UnityExplorer.UI
             CreateTopNavBar();
             // This could be automated with Assembly.GetTypes(),
             // but the order is important and I'd have to write something to handle the order.
-            if (UseUnity6000Fallbacks)
+            if (ExplorerCore.Unity6000RestrictNativePaths)
             {
                 ExplorerCore.Log($"UI Stage: Enable deferred panel bootstrap on Unity {Application.unityVersion}");
                 RegisterDeferredPanels();

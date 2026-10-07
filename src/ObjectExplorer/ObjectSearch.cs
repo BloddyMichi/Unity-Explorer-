@@ -18,6 +18,10 @@ namespace UnityExplorer.ObjectExplorer
 
         private SearchContext context = SearchContext.UnityObject;
         private SceneFilter sceneFilter = SceneFilter.Any;
+        // Scene-filter enum values in the exact order they were added to the
+        // dropdown. "DontDestroyOnLoad" is conditionally skipped, so the dropdown
+        // index must be mapped through this list, never cast straight to the enum.
+        private readonly List<SceneFilter> sceneFilterOptions = new();
         private ChildFilter childFilter = ChildFilter.Any;
         private string desiredTypeInput;
         private string lastCheckedTypeInput;
@@ -108,7 +112,8 @@ namespace UnityExplorer.ObjectExplorer
             }
         }
 
-        private void OnSceneFilterDropChanged(int value) => sceneFilter = (SceneFilter)value;
+        private void OnSceneFilterDropChanged(int value)
+            => sceneFilter = (value >= 0 && value < sceneFilterOptions.Count) ? sceneFilterOptions[value] : SceneFilter.Any;
 
         private void OnChildFilterDropChanged(int value) => childFilter = (ChildFilter)value;
 
@@ -216,11 +221,13 @@ namespace UnityExplorer.ObjectExplorer
             UIFactory.SetLayoutElement(sceneLbl.gameObject, minWidth: 110, flexibleWidth: 0);
 
             GameObject sceneDropObj = UIFactory.CreateDropdown(sceneFilterRow, "SceneFilterDropdown", out Dropdown sceneDrop, null, 14, OnSceneFilterDropChanged);
-            foreach (string name in Enum.GetNames(typeof(SceneFilter)))
+            sceneFilterOptions.Clear();
+            foreach (SceneFilter filterValue in Enum.GetValues(typeof(SceneFilter)))
             {
-                if (!SceneHandler.DontDestroyExists && name == "DontDestroyOnLoad")
+                if (!SceneHandler.DontDestroyExists && filterValue == SceneFilter.DontDestroyOnLoad)
                     continue;
-                sceneDrop.options.Add(new Dropdown.OptionData(name));
+                sceneFilterOptions.Add(filterValue);
+                sceneDrop.options.Add(new Dropdown.OptionData(filterValue.ToString()));
             }
             UIFactory.SetLayoutElement(sceneDropObj, minHeight: 25, flexibleHeight: 0, flexibleWidth: 9999);
 
